@@ -1,0 +1,28 @@
+var User = function (name) {
+  this.name = name;
+
+  this.say = function () {
+      console.log("User: " + this.name);
+  };
+}
+
+var DecoratedUser = function (user, street, city) {
+  this.user = user;
+  this.street = street;
+  this.city = city;
+  
+  this.say = function () {
+    console.log("Decorated User: " + this.user.name + ", " +
+        this.street + ", " + this.city);
+  };
+}
+
+function run() {
+  var user = new User("Nawaz");
+  user.say();
+  
+  var decorated = new DecoratedUser(user, "Kormangla", "Bangalore");
+  decorated.say();
+}
+
+run()

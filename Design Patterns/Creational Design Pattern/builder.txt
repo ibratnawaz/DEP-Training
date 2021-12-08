@@ -1,0 +1,183 @@
+import java.util.*;
+
+public class HelloWorld {
+  public static void main(String[] args) {
+    Product p1 = Product.newProduct()
+                        .id("101")
+                        .description("LED Disaply TV")
+                        .value(20000.00)
+                        .name("Horizon 7")
+                        .build();
+
+    System.out.println(p1.getId()+" "+p1.getName()+" "
+        + p1.getDescription() +" "+p1.getValue());
+        
+    Product p2 = Product.newProduct()
+                        .id("101")
+                        .name("Mi Note 11")
+                        .build();
+                        
+    System.out.println(p2.getId()+" "+p2.getName());
+  }
+}
+
+public class Product {
+  private String id;
+  private String name;
+  private String description;
+  private Double value;
+
+  private Product(Builder builder) {
+      setId(builder.id);
+      setName(builder.name);
+      setDescription(builder.description);
+      setValue(builder.value);
+  }
+
+  public static Builder newProduct() {
+      return new Builder();
+  }
+
+  public String getId() {
+      return id;
+  }
+
+  private void setId(String id) {
+      this.id = id;
+  }
+
+  public String getName() {
+      return name;
+  }
+
+  private void setName(String name) {
+      this.name = name;
+  }
+
+  public String getDescription() {
+      return description;
+  }
+
+  public void setDescription(String description) {
+      this.description = description;
+  }
+
+  public Double getValue() {
+      return value;
+  }
+
+  public void setValue(Double value) {
+      this.value = value;
+  }
+
+  public static class Builder {
+    private String id;
+    private String name;
+    private String description;
+    private Double value;
+
+    public Builder id(String id) {
+        this.id = id;
+        return this;
+    }
+
+    public Builder name(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public Builder description(String description) {
+        this.description = description;
+        return this;
+    }
+
+    public Builder value(Double value) {
+        this.value = value;
+        return this;
+    }
+
+    public Product build() {
+        return new Product(this);
+    }
+  }
+}
+
+
+--------------------------------------------------------------------------
+
+public class Demo {
+  public static void main(String[] args) {
+    Director director = new Director();
+
+    CarBuilder builder = new CarBuilder();
+    director.sportsCar(builder);
+    
+    Car car = builder.getResult();
+    System.out.println("Car built: " + car.getCarType());
+
+  }
+}
+
+public class Director {
+  public void sportsCar(Builder builder) {
+    builder.setCarType("SPORTS CAR");
+    builder.setSeats(2);
+    builder.setEngine("Four Cylinders Engine");
+  }
+}
+
+interface Builder {
+    void setCarType(String type);
+    void setSeats(int seats);
+    void setEngine(String engine);
+}
+
+class CarBuilder implements Builder {
+    private String type;
+    private int seats;
+    private String engine;
+
+    public void setCarType(String type) {
+        this.type = type;
+    }
+
+    @Override
+    public void setSeats(int seats) {
+        this.seats = seats;
+    }
+
+    @Override
+    public void setEngine(String engine) {
+        this.engine = engine;
+    }
+
+
+    public Car getResult() {
+        return new Car(type, seats, engine);
+    }
+}
+
+
+class Car {
+    private final String carType;
+    private final int seats;
+    private final String engine;
+
+    public Car(String carType, int seats, String engine) {
+        this.carType = carType;
+        this.seats = seats;
+        this.engine = engine;
+    }
+
+    public String getCarType() {
+        return carType;
+    }
+
+    public int getSeats() {
+        return seats;
+    }
+
+    public String getEngine() {
+        return engine;
+    }
+}

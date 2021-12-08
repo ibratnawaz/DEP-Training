@@ -1,0 +1,37 @@
+import java.util.*;
+
+public class FMPDemo{
+  public static void main (String[] args) {
+    System.out.println(BuildingFactory.getBuilding("house").getType());
+    System.out.println(BuildingFactory.getBuilding("office").getType());
+    System.out.println(BuildingFactory.getBuilding("hotel"));      
+  }
+}
+
+public class BuildingFactory {
+  public static Building getBuilding(String type){
+    if(type.equalsIgnoreCase("house")) {  
+      return new House();  
+    } else if(type.equalsIgnoreCase("office")) {  
+      return new Office();  
+    } else {  
+      return null;  
+    }
+  }
+}
+
+public interface Building {
+  String getType();
+}
+
+public class House implements Building {
+  public String getType(){
+    return "house";
+  }
+}
+
+public class Office implements Building {
+  public String getType(){
+    return "office";
+  }
+}

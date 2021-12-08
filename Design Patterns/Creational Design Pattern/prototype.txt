@@ -1,0 +1,52 @@
+import java.util.*;
+
+class PrototypeDemo{  
+  public static void main(String[] args) {
+    EmployeeRecord e1=new EmployeeRecord(1001,"Nawaz","SSE",600000,"Lko");  
+    e1.showRecord();  
+    System.out.println("\n");  
+    EmployeeRecord e2=(EmployeeRecord) e1.getClone();
+    e2.changeName("Amit");
+    e2.changeSalary(800000);
+    e2.showRecord();
+    }     
+}
+
+interface Prototype { 
+  public Prototype getClone();  
+}
+
+class EmployeeRecord implements Prototype{  
+  private int id;  
+  private String name, designation;  
+  private double salary;  
+  private String address;  
+      
+  public EmployeeRecord(int id, String name, String designation, double salary, String address) {  
+    this.id = id;  
+    this.name = name;  
+    this.designation = designation;  
+    this.salary = salary;  
+    this.address = address;  
+  }  
+      
+  public void showRecord(){  
+    System.out.println("   Employee Records of EPAM Systems India ");  
+    System.out.println("---------------------------------------------------------");  
+    System.out.println("Eid"+"\t"+"Ename"+"\t"+"Edesignation"+"\t"+"Esalary"+"\t\t"+"Eaddress");
+    System.out.println(id+"\t"+name+"\t"+designation+"\t\t"+salary+"\t"+address);  
+  }  
+  
+  public void changeSalary(double salary){
+    this.salary=salary;
+  }
+  
+  public void changeName(String name){
+    this.name=name;
+  }
+  
+  @Override  
+  public Prototype getClone() {  
+    return new EmployeeRecord(id,name,designation,salary,address);  
+  }  
+}
