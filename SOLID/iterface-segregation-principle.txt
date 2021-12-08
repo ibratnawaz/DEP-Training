@@ -1,0 +1,86 @@
+public class ISP {
+    public static void main(String[] args) {
+        InterfaceMultifunctional p = new BasicPrinter();
+        p.printBlack();
+    }
+}
+
+// Fat interface
+interface InterfaceMultifunctional{
+	public void printBlack();
+	public void printColor();
+	public void scanPhoto();
+	public void scanDoc();
+	public void fax();
+	public void faxInternet();
+}
+
+class BasicPrinter implements InterfaceMultifunctional{
+	public void printBlack(){/*printing logic...*/}
+	public void printColor(){/*printing logic...*/}
+	public void scanPhoto(){}
+	public void scanDoc(){}
+	public void fax(){}
+	public void faxInternet(){}
+}
+
+class AdvancePrinter implements InterfaceMultifunctional{
+	public void printBlack(){/*printing logic...*/}
+	public void printColor(){/*printing logic...*/}
+	public void scanPhoto(){/*printing logic...*/}
+	public void scanDoc(){/*printing logic...*/}
+	public void fax(){}
+	public void faxInternet(){}
+}
+
+class FaxMachine implements InterfaceMultifunctional{
+	public void fax(){/*printing logic...*/}
+	public void faxInternet(){/*printing logic...*/}
+	public void printBlack(){}
+	public void printColor(){}
+	public void scanPhoto(){}
+	public void scanDoc(){}
+}
+
+------------------------------------------------------------------------------
+
+Applying ISP:
+
+public class ISP {
+    public static void main(String[] args) {
+        InterfacePrinter p = new BasicPrinter();
+        p.printBlack();
+    }
+}
+
+interface InterfacePrinter{
+	public void printBlack();
+	public void printColor();
+}
+
+interface InterfaceScanner{
+	public void scanPhoto();
+	public void scanDoc();
+}
+
+interface InterfaceFax{
+	public void fax();
+	public void faxInternet();
+}
+
+class BasicPrinter implements InterfacePrinter{
+	public void printBlack(){/*printing logic...*/}
+	public void printColor(){/*printing logic...*/}
+}
+
+class AdvancePrinter implements InterfacePrinter,InterfaceScanner{
+	public void printBlack(){/*printing logic...*/}
+	public void printColor(){/*printing logic...*/}
+	public void scanPhoto(){/*printing logic...*/}
+	public void scanDoc(){/*printing logic...*/}
+}
+
+class FaxMachine implements InterfaceFax{
+	public void fax(){/*printing logic...*/}
+	public void faxInternet(){/*printing logic...*/}
+}

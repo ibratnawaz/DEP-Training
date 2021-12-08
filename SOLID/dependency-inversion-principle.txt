@@ -1,0 +1,37 @@
+import java.util.*;
+
+class DIP{
+  public static void main(String[] args){
+    new Product().fetchDetails();
+  }
+}
+
+class Product{
+  public void fetchDetails(){
+    IProduct db=new DBOperations();
+    List<String> lst=db.getALlProducts();
+    System.out.println(lst);
+    
+    // not following DIP
+    DBOperations2 db2=new DBOperations2();
+    lst=db2.getALlProducts();
+    System.out.println(lst);
+  }
+}
+
+interface IProduct{
+  List<String> getALlProducts();
+}
+
+class DBOperations implements IProduct{
+  public List<String> getALlProducts(){
+    return Arrays.asList("Fruits", "Bags");
+  }
+}
+
+// complete dependecny
+class DBOperations2 {
+  public List<String> getALlProducts(){
+    return Arrays.asList("Fruits", "Bags");
+  }
+}

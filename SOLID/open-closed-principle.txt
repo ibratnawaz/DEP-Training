@@ -1,0 +1,38 @@
+public class OCP{
+  public static void main (String[] args) {
+    // not following OCP
+    // Interest tm=new Interest();
+    // System.out.println(tm.setInterest(3000,"gst"));
+    
+    Interest tm=new GST();
+    System.out.println(tm.setInterest(30000));
+    
+    tm=new ForiegnTax();
+    System.out.println(tm.setInterest(30000));
+  }
+}
+
+// not following OCP
+// class Interest{
+//   public double setInterest(double amt,String tax){
+//     if(tax.equalsIgnoreCase("gst")) return (amt + amt*0.18);
+//     else if(tax.equalsIgnoreCase("fngtax")) return (amt + amt*0.20);
+//     else return (amt + amt*0.25);
+//   }
+// }
+
+interface Interest{
+  double setInterest(double amt);
+}
+
+class GST implements Interest{
+  public double setInterest(double amt){
+    return (amt + amt*0.18);
+  }
+}
+
+class ForiegnTax implements Interest{
+  public double setInterest(double amt){
+    return (amt + amt*0.30);
+  }
+}

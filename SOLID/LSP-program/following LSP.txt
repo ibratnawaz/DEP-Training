@@ -1,0 +1,51 @@
+public class Main {
+    public static void main(String[] args) {
+      
+      IAccount i1=new WithdrawableAccount();
+      i1.deposit(1000);
+      
+      IAccount i2=new FixedTermDepositAccount();
+      i2.deposit(2000);
+      
+      /*---------------------------------------------------*/
+      WithdrawableAccount a1= new BasicAccount();
+      a1.withdraw(2500);
+      
+      WithdrawableAccount a2= new SalaryAccount();
+      a2.withdraw(3000);
+      
+      /*---------------------------------------------------*/
+      FixedTermDepositAccount a3= new FixedAccount();
+      a3.deposit(4500);    
+    }
+}
+
+
+interface IAccount{
+  void deposit(int a);
+}
+
+class WithdrawableAccount implements IAccount{
+  public void deposit(int a){
+    System.out.println("Deposited "+ a);
+  }
+  
+  void withdraw(int a){
+    System.out.println("Withdraw "+ a);
+  }
+}
+
+class FixedTermDepositAccount implements IAccount{
+  public void deposit(int a){
+    System.out.println("Deposited "+ a);
+  }
+}
+
+class BasicAccount extends WithdrawableAccount{}
+
+class SalaryAccount extends WithdrawableAccount{}
+
+class FixedAccount extends FixedTermDepositAccount{}
+
+
+

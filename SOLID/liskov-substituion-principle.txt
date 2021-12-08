@@ -1,0 +1,41 @@
+class Bird {  
+//     fly(){console.log("fly bird");}
+    
+//     layEgg(){console.log("lay egg");}
+// }
+
+// class Eagle extends Bird {
+
+// }
+
+// class Penguin extends Bird{
+//   //Problem: Can't fly! 
+// }
+
+// const penguin = new Penguin();
+// penguin.fly();
+
+
+class Bird {
+  layEgg () {console.log("lay egg");}
+}
+
+class FlyingBird extends Bird{
+  fly () {console.log("fly bird");}
+}
+
+class SwimmingBird extends Bird {
+  swim () {console.log("swim bird");}
+}
+
+class Eagle extends FlyingBird {}
+
+class Penguin extends SwimmingBird {}
+
+const penguin = new Penguin();
+penguin.swim();
+penguin.layEgg();
+
+let eagle = new Eagle();
+eagle.fly();
+eagle.layEgg();

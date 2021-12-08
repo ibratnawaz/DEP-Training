@@ -1,0 +1,38 @@
+public class Main {
+    public static void main(String[] args) {
+        Account a1= new BasicAccount();
+        a1.withdraw(2500);
+        
+        Account a2= new SalaryAccount();
+        a2.withdraw(3000);
+        
+        // violation of LSP
+        Account a3= new FixedAccount();
+        a3.withdraw(4500);    
+    }
+}
+
+
+class Account{
+  void deposit(int a){
+    System.out.println("Deposited "+ a);
+  }
+  
+  void withdraw(int a){
+    System.out.println("Withdraw "+ a);
+  }
+}
+
+
+class BasicAccount extends Account{
+}
+
+class SalaryAccount extends Account{
+  
+}
+
+class FixedAccount extends Account{
+  void withdraw(int a){
+    throw new UnsupportedOperationException("Withdrawals are not supported by FixedTermDepositAccount!!");
+  }
+}

@@ -1,0 +1,25 @@
+public class SIP {
+    public static void main(String[] args) {
+        Product p = new Product();
+        p.setType("Apple");
+        p.setName("iphone 10");
+        
+        p.save();
+    }
+}
+
+class Product{
+  private String pName;
+  private String PType;
+	public void setName(String name){pName=name;}
+	public String getName(){return pName;}
+	public void setType(String type){PType=type;}
+	public String getType(){return PType;}
+	public void save(){new DBProduct().saveData(pName,PType);}
+}
+
+class DBProduct{
+	public void saveData(String name,String type){
+	  System.out.println(name+" "+type);
+	}
+}
