@@ -1,0 +1,17 @@
+class OverLoading{
+  public void draw(int l, int b){
+      System.out.println("Drawing rectangle of "+l+" x "+b);
+  }
+  public void draw(int r){
+      System.out.println("Drawing circle of radius "+r);
+  }
+  public void draw(int l, int b, int h){
+      System.out.println("Drawing cuboid of "+l+" x "+b+" x "+h);
+  }
+  public static void main(String[] args){
+    OverLoading obj=new OverLoading();
+    obj.draw(4,10);
+    obj.draw(3);
+    obj.draw(4,10,6);
+  }
+}

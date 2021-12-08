@@ -1,0 +1,33 @@
+public class Main{
+  public static void main(String[] args) {
+    new Honda().run();
+    new Pulsar().run();
+    new Pulsar().performance();
+  }
+}
+
+interface Bike{
+  int avg_speed=40;
+  void run();
+}
+
+interface Engine{
+  void performance();
+}
+
+class Honda implements Bike{
+  public void run(){
+    System.out.println("running safely at "+avg_speed+"kmph");
+  }
+}
+
+class Pulsar implements Bike, Engine{
+  public void run(){
+    int avg_speed=70; // not overriding but creating a local variable.
+    System.out.println("running safely at "+avg_speed+"kmph");
+  }
+
+  public void performance(){
+    System.out.println("Best racing bike!!");
+  }
+}

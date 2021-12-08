@@ -1,0 +1,27 @@
+public class Main{
+  public static void main(String[] args) {
+    new Honda().run();
+    new Pulsar().run();
+    Bike.display();
+  }
+}
+
+abstract class Bike{
+  abstract  void run();
+  
+  public static void display(){
+    System.out.println("Displaying from non-abstract method of abstract class!!");
+  }
+}
+
+class Honda extends Bike{
+  void run(){
+    System.out.println("running safely at 50kmph");
+  }
+}
+
+class Pulsar extends Bike{
+  void run(){
+    System.out.println("running safely at 90kmph");
+  }
+}

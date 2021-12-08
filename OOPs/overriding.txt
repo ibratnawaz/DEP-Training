@@ -1,0 +1,21 @@
+public class Child extends Parent{
+  public static void main(String[] args) {
+    Parent obj1=new Parent();
+    obj1.display();
+    Child obj2=new Child();
+    obj2.display();
+    Parent obj3=new Child();
+    obj3.display();
+  }
+
+  @Override
+  public void display(){
+    System.out.println("Message from Child!!");
+  }
+}
+
+class Parent{
+  public void display(){
+    System.out.println("Message from Parent!!");
+  }
+}
