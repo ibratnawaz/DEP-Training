@@ -1,6 +1,6 @@
 # DEP-training
 
-- OOPs concetps
+- OOPs concepts
 - SOLID Principles
 - Design Patterns
 - git & GitHub
