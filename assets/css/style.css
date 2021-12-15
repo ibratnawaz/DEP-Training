@@ -1,0 +1,44 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  padding: 20px;
+  height: 100vh;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.col {
+  flex-direction: column;
+}
+
+.row {
+  flex-direction: row;
+}
+
+.center {
+  justify-content: center;
+  align-items: center;
+}
+
+img {
+  height: 40px;
+  flex: 0.1;
+}
+form {
+  flex: 0.9;
+}
+
+input {
+  height: 34px;
+  width: 500px;
+}
+
+#search-video {
+  height: 34px;
+  padding: 0 20px;
+}
