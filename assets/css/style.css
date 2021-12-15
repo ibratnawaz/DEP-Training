@@ -6,6 +6,7 @@
 body {
   padding: 20px;
   height: 100vh;
+  font-family: "Roboto", sans-serif;
 }
 
 .d-flex {
@@ -25,10 +26,11 @@ body {
   align-items: center;
 }
 
-img {
+#search-container > img {
   height: 40px;
   flex: 0.1;
 }
+
 form {
   flex: 0.9;
 }
@@ -41,4 +43,45 @@ input {
 #search-video {
   height: 34px;
   padding: 0 20px;
+}
+
+#main-container {
+  margin-top: 48px;
+  background-color: #f9f9f9;
+  flex-grow: 1;
+  border-top: 2px solid #f1f1f1;
+}
+
+.video-box {
+  width: 280px;
+  padding: 10px;
+  border: 1px solid #aaa;
+  box-sizing: border-box;
+  margin-top: 12px;
+}
+
+.video-box > img {
+  width: 260px;
+  height: 140px;
+}
+
+.video-title {
+  font-weight: bold;
+  margin-top: 4px;
+}
+
+.video-content,
+.video-author,
+.video-date {
+  font-size: 0.8rem;
+  text-align: left;
+  margin-top: 8px;
+}
+
+.video-content {
+  color: #909090;
+}
+.video-author,
+.video-date {
+  color: #606060;
 }
