@@ -2,15 +2,15 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>YouTube Finder</title>
 
-     <!-- google fonts -->
-     <link rel="preconnect" href="https://fonts.googleapis.com">
-     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <!-- google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet" />
 
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
@@ -18,29 +18,23 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- custom css -->
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 
 <body class="d-flex col">
     <section id="search-container" class="d-flex row">
         <img src="assets/images/logo.png" alt="YouTube Icon">
         <form class="d-flex row center" onsubmit="fetchVideos(event)">
-            <input type="search" id="search">
+            <input type="search" id="search-videos">
             <button id="search-video"><i class="fas fa-search"></i></button>
             </div>
+        </form>
     </section>
 
-    <section id="main-container">
-        <div class="video-box">
-            <img src="https://i.ytimg.com/vi/3c584TGG7jQ/hqdefault.jpg" alt="">
-            <div class="video-details">
-                <p class="video-title">EXPLODING Glitter Bomb 4.0 vs. Package Thieves</p>
-                <p class="video-content">Merry Christmas ya filthy animals. If you want to learn the design fundamentals it takes to make something like the Glitter Bomb</p>
-                <p class="video-author">Mark Rober &nbsp;<i class="fas fa-check-circle"></i></p>
-                <p class="video-date">Posted on Tue Dec 14 2021</p>
-            </div>
-        </div>
-    </section>
+    <section id="main-container" class="d-flex row center"></section>
+
+    <section id="pagination" class="d-flex row center"></section>
+
     <!-- script -->
     <script src="assets/js/script.js"></script>
 </body>

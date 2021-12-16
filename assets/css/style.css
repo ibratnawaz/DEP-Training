@@ -50,6 +50,8 @@ input {
   background-color: #f9f9f9;
   flex-grow: 1;
   border-top: 2px solid #f1f1f1;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
 }
 
 .video-box {
@@ -57,7 +59,8 @@ input {
   padding: 10px;
   border: 1px solid #aaa;
   box-sizing: border-box;
-  margin-top: 12px;
+  margin: 12px;
+  height: 324px;
 }
 
 .video-box > img {
@@ -80,8 +83,43 @@ input {
 
 .video-content {
   color: #909090;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  height: 46px;
 }
 .video-author,
 .video-date {
   color: #606060;
+}
+
+#pagination {
+  flex-wrap: wrap;
+}
+#pagination button {
+  padding: 4px 8px;
+  background-color: bisque;
+  border: 2px solid burlywood;
+  cursor: pointer;
+  margin: 0 2px 24px 2px;
+}
+
+.btn-active {
+  background-color: burlywood !important;
+}
+
+button:disabled {
+  cursor: not-allowed !important;
+}
+
+@media screen and (max-width: 768px) {
+  #search-container {
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0 2px;
+  }
+
+  form {
+    flex: 1;
+    margin-top: 20px;
+  }
 }

@@ -15,7 +15,7 @@ Use-case:
 Requirements:
 
 1. Chrome support and one mobile platform
-2. HTML creates using JS. Almost no code inside index.html.
+2. HTML creates using JS. Required code inside index.html.
 3. No jquery or other frameworks. You can use only lodash.
 4. JS code should be splitted to different files depending on architecture.
 5. Minimal info about video is title with link on youtube, preview, description, author, published date, count of views.
