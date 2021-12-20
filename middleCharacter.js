@@ -1,10 +1,10 @@
 // Get the Middle Character
 
-function getMiddle(s)
-{
-  if(s.length%2==0) return s[s.length/2 - 1]+s[s.length/2]
-  
-  return s[Math.floor(s.length/2)]
+function getMiddle(string) {
+  if (string.length % 2 == 0)
+    return string[string.length / 2 - 1] + string[string.length / 2];
+
+  return string[Math.floor(string.length / 2)];
 }
 
-getMiddle('test')
+getMiddle("test");

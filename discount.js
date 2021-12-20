@@ -1,12 +1,12 @@
 // Transportation on vacation
 
-function rentalCarCost(d) {
-    let total = 40 * d;
-    let disc = 0;
-    if(d >= 7) disc = 50;
-    else if(d >= 3) disc = 20;
-    
-    return total - disc
+function rentalCarCost(days) {
+  let totalCost = 40 * days;
+  let discount = 0;
+  if (days >= 7) discount = 50;
+  else if (days >= 3) discount = 20;
+
+  return totalCost - discount;
 }
 
-rentalCarCost(3)
+rentalCarCost(3);
