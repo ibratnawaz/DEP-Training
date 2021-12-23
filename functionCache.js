@@ -12,12 +12,12 @@ cachedFunction('foo', 'baz'); // should be executed, because the method wasn't i
 */
 
 function cache(fn) {
-  const obj = {};
+  const data = {};
 
   return function () {
     const args = JSON.stringify(arguments);
-    if (!(args in obj)) obj[args] = fn(...arguments);
+    if (!(args in data)) data[args] = fn(...arguments);
 
-    return obj[args];
+    return data[args];
   };
 }

@@ -10,8 +10,8 @@ function createSecretHolder(secret) {
     getSecret: function () {
       return secret;
     },
-    setSecret: function (val) {
-      secret = val;
+    setSecret: function (value) {
+      secret = value;
     },
   };
 }

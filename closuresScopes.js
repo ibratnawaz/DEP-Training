@@ -9,11 +9,11 @@ callbacks[3](); // must return 3
 */
 
 function createFunctions(length) {
-  var callbacks = [];
+  let callbacks = [];
 
-  for (let i = 0; i < length; i++) {
+  for (let index = 0; index < length; index++) {
     callbacks.push(function () {
-      return i;
+      return index;
     });
   }
 
@@ -22,6 +22,6 @@ function createFunctions(length) {
 
 const callbacks = createFunctions(5);
 
-for (var i = 0; i < callbacks.length; i++) {
-  console.log(callbacks[i](), i, "Function with index " + i);
+for (let index = 0; index < callbacks.length; index++) {
+  console.log(callbacks[index](), index, "Function with index " + index);
 }

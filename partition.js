@@ -3,24 +3,26 @@
 // partition the items array so that all values for which pred returns true are
 // at the end, returning the index of the first true value
 function partitionOn(callback, items) {
-  const obj = {};
-  items.forEach((item) => (obj[item] = callback(item)));
+  const data = {};
+  items.forEach((item) => (data[item] = callback(item)));
 
-  const arrE = [];
-  const arrO = [];
+  const evenElements = [];
+  const oddElements = [];
   items.forEach((item) => {
-    if (obj[item]) arrE.push(item);
-    else arrO.push(item);
+    if (data[item]) evenElements.push(item);
+    else oddElements.push(item);
   });
 
-  arrO.forEach((item, idx) => (items[idx] = item));
-  arrE.forEach((item, idx) => (items[idx + arrO.length] = item));
+  oddElements.forEach((item, index) => (items[index] = item));
+  evenElements.forEach(
+    (item, index) => (items[index + oddElements.length] = item)
+  );
 
-  return arrO.length;
+  return oddElements.length;
 }
 
-function isEven(num) {
-  return num % 2 == 0;
+function isEven(value) {
+  return value % 2 == 0;
 }
 
 partitionOn(isEven, [1, 3, 6, 2, 4, 8, 9]);

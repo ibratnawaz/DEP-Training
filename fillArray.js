@@ -10,17 +10,11 @@ You have to validate input:
 */
 
 function prefill(length, data) {
-  try {
-    if (typeof length == undefined || length === "0" || length === 0) return [];
-    else if (typeof length == "boolean" || isNaN(+length))
-      throw new TypeError();
+  if (parseInt(length) == length && length >= 0) {
+    if (length == 0) return [];
 
-    if (typeof data == undefined) return new Array(+length).fill(undefined);
-
-    return new Array(+length).fill(data);
-  } catch (error) {
-    throw TypeError(`${n} is invalid`);
-  }
+    return new Array(parseInt(length)).fill(data);
+  } else throw TypeError(`${length} is invalid`);
 }
 
 console.log(prefill(4, "abc"));

@@ -1,24 +1,24 @@
 // Basic Mathematical Operations
 
 function basicOp(operation, value1, value2) {
-  let ans;
+  let answer;
   switch (operation) {
     case "+":
-      ans = value1 + value2;
+      answer = value1 + value2;
       break;
     case "-":
-      ans = value1 - value2;
+      answer = value1 - value2;
       break;
     case "*":
-      ans = value1 * value2;
+      answer = value1 * value2;
       break;
     case "/":
-      ans = value1 / value2;
+      answer = value1 / value2;
       break;
     default:
       return "Invalid inputs!!";
   }
-  return ans;
+  return answer;
 }
 
 basicOp("*", 5, 4);
