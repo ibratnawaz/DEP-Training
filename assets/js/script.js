@@ -21,17 +21,43 @@ const numbers = {
 };
 
 const pageStrings = {
-  PREV: "prev",
   DIV: "div",
-  BUTTON: "button",
-  NEXT: "next",
   PART: "snippet",
   CHART: "mostPopular",
   REGION: "IN",
   IMAGE: "img",
+  SEARCH_KEY: "search-videos",
+  CIRCLE_ICON: '<i class="fas fa-check-circle"></i>',
+  SPACE: "&nbsp;",
+  EMPTY: "",
+};
+
+const buttonStrings = {
+  BUTTON: "button",
+  BUTTON_PREFIX: "btn-",
+  NEXT: "next",
+  PREVIOUS: "prev",
   ACTIVE_BUTTON: "btn-active",
   PREVIOUS_BUTTON: "btn-prev",
   NEXT_BUTTON: "btn-next",
+  CLICK_EVENT: "click",
+};
+
+const videoStrigns = {
+  BOX: "video-box",
+  DETAILS: "video-details",
+  TITLE: "video-title",
+  CONTENT: "video-content",
+  AUTHOR: "video-author",
+  DATE: "video-date",
+};
+
+const apiConfig = {
+  key: apiKey,
+  part: pageStrings.PART,
+  chart: pageStrings.CHART,
+  maxResults: numbers.FIVE * numbers.TEN,
+  regionCode: pageStrings.REGION,
 };
 
 let videosData;
@@ -42,54 +68,35 @@ let totalPage = numbers.ZERO;
 
 const pageStack = [currentPage];
 
-const fetchSearchVideos = async (e) => {
+const fetchApi = async (api) => {
   try {
-    e.preventDefault();
-
-    const searchString = document.querySelector("#search-videos").value;
-
-    const response = await fetch(
-      searchApi +
-        new URLSearchParams({
-          key: apiKey,
-          part: pageStrings.PART,
-          chart: pageStrings.CHART,
-          maxResults: numbers.FIVE * numbers.TEN,
-          regionCode: pageStrings.REGION,
-          q: searchString,
-        })
-    );
-
+    const response = await fetch(api + new URLSearchParams(apiConfig));
     const data = await response.json();
-    videosData = data.items;
-
-    setVideos(videosData);
-    pagination(videosData.length);
+    return data;
   } catch (error) {
-    console.error(error.message);
+    alert(error.message);
   }
 };
 
-const fetchDefaultVideos = async () => {
+const getSearchVideos = (e) => {
+  e.preventDefault();
+
+  const searchString = document.querySelector(
+    `#${pageStrings.SEARCH_KEY}`
+  ).value;
+
+  apiConfig.q = searchString;
+  helperFunction(searchApi);
+};
+
+const helperFunction = async (api) => {
   try {
-    const response = await fetch(
-      videosApi +
-        new URLSearchParams({
-          key: apiKey,
-          part: pageStrings.PART,
-          chart: pageStrings.CHART,
-          maxResults: numbers.FIVE * numbers.TEN,
-          regionCode: pageStrings.REGION,
-        })
-    );
-
-    const data = await response.json();
+    const data = await fetchApi(api);
     videosData = data.items;
-
     setVideos(videosData);
     pagination(videosData.length);
   } catch (error) {
-    console.error(error.message);
+    console.error(error);
   }
 };
 
@@ -100,96 +107,97 @@ const setVideos = () => {
   );
 
   const { mainContainer } = htmlQuerySelectorObject;
-  mainContainer.innerHTML = "";
+  mainContainer.innerHTML = pageStrings.EMPTY;
   currentItems.forEach((item) => {
     mainContainer.appendChild(videoBox(item));
   });
 };
 
 const videoBox = (item) => {
-  const videoBox = createHtmlElement(pageStrings.DIV, null, "video-box");
+  const videoBox = createHtmlElement(pageStrings.DIV, {
+    className: videoStrigns.BOX,
+  });
 
-  const videoImage = createHtmlElement(pageStrings.IMAGE);
-  videoImage.src = item.snippet.thumbnails.high.url;
+  const videoImage = createHtmlElement(pageStrings.IMAGE, {
+    imageSource: item.snippet.thumbnails.high.url,
+  });
 
-  const videoDetails = createHtmlElement(
-    pageStrings.DIV,
-    null,
-    "video-details"
-  );
+  const videoDetails = createHtmlElement(pageStrings.DIV, {
+    className: videoStrigns.DETAILS,
+  });
 
-  const videoTitle = createHtmlElement(
-    pageStrings.DIV,
-    item.snippet.title.slice(0, 50),
-    "video-title"
-  );
-  const videoContent = createHtmlElement(
-    pageStrings.DIV,
-    item.snippet.description || dummyDescription,
-    "video-content"
-  );
-  const videoAuthor = createHtmlElement(pageStrings.DIV, null, "video-author");
-  videoAuthor.innerHTML = `${item.snippet.channelTitle} &nbsp;${
-    +Math.random().toFixed(0) ? '<i class="fas fa-check-circle"></i>' : ""
-  }`;
-  const videoPublishedOn = createHtmlElement(
-    pageStrings.DIV,
-    new Date(`${item.snippet.publishedAt}`).toString().slice(0, 15),
-    "video-date"
-  );
-
-  videoDetails.append(videoTitle, videoContent, videoAuthor, videoPublishedOn);
+  videoDetailsInnerBox(videoDetails, item);
 
   videoBox.append(videoImage, videoDetails);
 
   return videoBox;
 };
 
+const videoDetailsInnerBox = (videoDetails, item) => {
+  const videoTitle = createHtmlElement(pageStrings.DIV, {
+    text: item.snippet.title.slice(numbers.ZERO, numbers.FIVE * numbers.TEN),
+    className: videoStrigns.TITLE,
+  });
+  const videoContent = createHtmlElement(pageStrings.DIV, {
+    text: item.snippet.description || dummyDescription,
+    className: videoStrigns.CONTENT,
+  });
+  const videoAuthor = createHtmlElement(pageStrings.DIV, {
+    className: videoStrigns.AUTHOR,
+  });
+  videoAuthor.innerHTML = `${item.snippet.channelTitle} ${pageStrings.SPACE}${
+    +Math.random().toFixed(0) ? pageStrings.CIRCLE_ICON : pageStrings.EMPTY
+  }`;
+  const videoPublishedOn = createHtmlElement(pageStrings.DIV, {
+    text: new Date(`${item.snippet.publishedAt}`).toString().slice(0, 15),
+    className: videoStrigns.DATE,
+  });
+
+  videoDetails.append(videoTitle, videoContent, videoAuthor, videoPublishedOn);
+};
+
 const pagination = (dataCount) => {
   totalPage = Math.ceil(dataCount / videosPerPageCount);
 
   const { sectionPagination } = htmlQuerySelectorObject;
-  sectionPagination.innerHTML = "";
+  sectionPagination.innerHTML = pageStrings.EMPTY;
 
-  const pagePreviousButton = createHtmlElement(
-    pageStrings.BUTTON,
-    pageStrings.PREV,
-    null,
-    pageStrings.PREVIOUS_BUTTON
-  );
-  pagePreviousButton.disabled = true;
-  setOnclickAttribute(pagePreviousButton, pageStrings.PREV);
-  sectionPagination.appendChild(pagePreviousButton);
-
-  const firstButton = createHtmlElement(
-    pageStrings.BUTTON,
-    numbers.ONE,
-    pageStrings.ACTIVE_BUTTON,
-    "btn-1"
-  );
-  setOnclickAttribute(firstButton, numbers.ONE);
-  sectionPagination.appendChild(firstButton);
+  generatePreviousButton(sectionPagination);
 
   for (let index = numbers.TWO; index <= totalPage; index++) {
-    const pageButton = createHtmlElement(
-      pageStrings.BUTTON,
-      index,
-      null,
-      `btn-${index}`
-    );
-    setOnclickAttribute(pageButton, index);
+    const pageButton = createHtmlElement(buttonStrings.BUTTON, {
+      text: index,
+      id: `${buttonStrings.BUTTON_PREFIX}${index}`,
+    });
+    setOnClickAttribute(pageButton, index);
     sectionPagination.appendChild(pageButton);
   }
 
-  const pageNextButton = createHtmlElement(
-    pageStrings.BUTTON,
-    pageStrings.NEXT,
-    null,
-    pageStrings.NEXT_BUTTON
-  );
-  setOnclickAttribute(pageNextButton);
+  const pageNextButton = createHtmlElement(buttonStrings.BUTTON, {
+    text: buttonStrings.NEXT,
+    id: buttonStrings.NEXT_BUTTON,
+  });
+  setOnClickAttribute(pageNextButton, buttonStrings.NEXT);
   sectionPagination.appendChild(pageNextButton);
+
   sethtmlQuerySelectorObject();
+};
+
+const generatePreviousButton = (sectionPagination) => {
+  const pagePreviousButton = createHtmlElement(buttonStrings.BUTTON, {
+    text: buttonStrings.PREVIOUS,
+    id: buttonStrings.PREVIOUS_BUTTON,
+  });
+  pagePreviousButton.disabled = true;
+  setOnClickAttribute(pagePreviousButton, buttonStrings.PREVIOUS);
+
+  const firstButton = createHtmlElement(buttonStrings.BUTTON, {
+    text: numbers.ONE,
+    className: buttonStrings.ACTIVE_BUTTON,
+    id: `${buttonStrings.BUTTON_PREFIX}${numbers.ONE}`,
+  });
+  setOnClickAttribute(firstButton, numbers.ONE);
+  sectionPagination.append(pagePreviousButton, firstButton);
 };
 
 const paginate = async (page) => {
@@ -203,68 +211,63 @@ const paginate = async (page) => {
   toggleButton();
 };
 
-const createHtmlElement = (tagName, text, className, id) => {
+const createHtmlElement = (tagName, attributes) => {
   const htmlTag = document.createElement(tagName);
+  const { text, id, className, imageSource } = attributes;
   text && (htmlTag.innerText = text);
   id && (htmlTag.id = id);
   className && htmlTag.classList.add(className);
+  imageSource && (htmlTag.src = imageSource);
   return htmlTag;
 };
 
-const setOnclickAttribute = (button, text = pageStrings.NEXT) => {
-  button.addEventListener("click", function () {
-    paginate(
-      text == pageStrings.NEXT
-        ? pageStrings.NEXT
-        : text == pageStrings.PREV
-        ? pageStrings.PREV
-        : text,
-      this
-    );
+const setOnClickAttribute = (button, text) => {
+  let value;
+  if (Number.isInteger(text)) value = text;
+  else
+    value =
+      text == buttonStrings.NEXT ? buttonStrings.NEXT : buttonStrings.PREVIOUS;
+
+  button.addEventListener(buttonStrings.CLICK_EVENT, function () {
+    paginate(value, this);
   });
 };
 
 const sethtmlQuerySelectorObject = () => {
   htmlQuerySelectorObject.previousButton = document.querySelector(
-    `#${pageStrings.PREVIOUS_BUTTON}`
+    `#${buttonStrings.PREVIOUS_BUTTON}`
   );
   htmlQuerySelectorObject.nextButton = document.querySelector(
-    `#${pageStrings.NEXT_BUTTON}`
+    `#${buttonStrings.NEXT_BUTTON}`
   );
   htmlQuerySelectorObject.activeButton = document.querySelector(
-    `.${pageStrings.ACTIVE_BUTTON}`
+    `.${buttonStrings.ACTIVE_BUTTON}`
   );
 };
 
 const toggleActiveButton = () => {
   let { activeButton: currentActiveButton } = htmlQuerySelectorObject;
-  currentActiveButton.classList.remove(pageStrings.ACTIVE_BUTTON);
-  currentActiveButton = document.querySelector(`#btn-${currentPage}`);
-  currentActiveButton.classList.add(pageStrings.ACTIVE_BUTTON);
+  currentActiveButton.classList.remove(buttonStrings.ACTIVE_BUTTON);
+  currentActiveButton = document.querySelector(
+    `#${buttonStrings.BUTTON_PREFIX}${currentPage}`
+  );
+  currentActiveButton.classList.add(buttonStrings.ACTIVE_BUTTON);
   htmlQuerySelectorObject.activeButton = currentActiveButton;
 };
 
 const toggleButton = () => {
-  togglePreviousButton();
-  toggleNextButton();
-};
-
-const togglePreviousButton = () => {
-  const { previousButton } = htmlQuerySelectorObject;
+  const { previousButton, nextButton } = htmlQuerySelectorObject;
   isCurrentPageEquals(numbers.ONE)
     ? (previousButton.disabled = true)
     : (previousButton.disabled = false);
-};
 
-const toggleNextButton = () => {
-  const { nextButton } = htmlQuerySelectorObject;
   isCurrentPageEquals(totalPage)
     ? (nextButton.disabled = true)
     : (nextButton.disabled = false);
 };
 
 const isCurrentPageEquals = (pageCount) => currentPage == pageCount;
-const isCurrentPagePrevious = (page) => page == pageStrings.PREV;
-const isCurrentPageNext = (page) => page == pageStrings.NEXT;
+const isCurrentPagePrevious = (page) => page == buttonStrings.PREVIOUS;
+const isCurrentPageNext = (page) => page == buttonStrings.NEXT;
 
-window.onload = fetchDefaultVideos();
+window.onload = helperFunction(videosApi);
