@@ -149,11 +149,21 @@ const videoDetailsInnerBox = (videoDetails, item) => {
     +Math.random().toFixed(0) ? pageStrings.CIRCLE_ICON : pageStrings.EMPTY
   }`;
   const videoPublishedOn = createHtmlElement(pageStrings.DIV, {
-    text: new Date(`${item.snippet.publishedAt}`).toString().slice(0, 15),
+    text: getFormattedDate(item.snippet.publishedAt),
     className: videoStrigns.DATE,
   });
 
   videoDetails.append(videoTitle, videoContent, videoAuthor, videoPublishedOn);
+};
+
+const getFormattedDate = (dateTime) => {
+  const istDate = new Date(dateTime);
+  const day = istDate.toLocaleDateString("en-US", { weekday: "short" });
+  const month = istDate.toLocaleDateString("en-US", { month: "short" });
+  const date = istDate.getDate();
+  const year = istDate.getFullYear();
+  const formattedDate = `${day} ${month} ${date}, ${year}`;
+  return formattedDate;
 };
 
 const pagination = (dataCount) => {
