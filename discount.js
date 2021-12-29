@@ -2,11 +2,21 @@
 
 function rentalCarCost(days) {
   const CHARGES_PER_DAY = 40;
-  let totalCost = CHARGES_PER_DAY * days;
-  let discount = 0;
+  const ZERO = 0;
+  const daysCount = {
+    MAX: 7,
+    MIN: 7,
+  };
+  const discountCharges = {
+    MAX: 50,
+    MIN: 20,
+  };
 
-  if (days >= 7) discount = 50;
-  else if (days >= 3) discount = 20;
+  let totalCost = CHARGES_PER_DAY * days;
+  let discount = ZERO;
+
+  if (days >= daysCount.MAX) discount = discountCharges.MAX;
+  else if (days >= daysCount.MIN) discount = discountCharges.MIN;
 
   return totalCost - discount;
 }

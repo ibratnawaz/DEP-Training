@@ -1,10 +1,19 @@
 // Get the Middle Character
 
 function getMiddle(value) {
-  if (value.length % 2 == 0)
-    return value[value.length / 2 - 1] + value[value.length / 2];
+  const numbers = {
+    ZERO: 0,
+    ONE: 1,
+    TWO: 2,
+  };
 
-  return value[Math.floor(value.length / 2)];
+  const length = value.length;
+  const middlePosition = Math.floor(length / numbers.TWO);
+
+  if (length % numbers.TWO == numbers.ZERO)
+    return value[middlePosition - numbers.ONE] + value[middlePosition];
+
+  return value[middlePosition];
 }
 
 getMiddle("test");

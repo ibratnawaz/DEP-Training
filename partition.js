@@ -22,7 +22,8 @@ function partitionOn(callback, items) {
 }
 
 function isEven(value) {
-  return value % 2 == 0;
+  const TWO = 2;
+  return value % TWO === 0;
 }
 
 partitionOn(isEven, [1, 3, 6, 2, 4, 8, 9]);
