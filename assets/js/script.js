@@ -86,10 +86,10 @@ const getSearchVideos = (e) => {
   ).value;
 
   apiConfig.q = searchString;
-  helperFunction(searchApi);
+  fetchHelper(searchApi);
 };
 
-const helperFunction = async (api) => {
+const fetchHelper = async (api) => {
   try {
     const data = await fetchApi(api);
     videosData = data.items;
@@ -201,18 +201,18 @@ const generatePreviousButton = (sectionPagination) => {
   pagePreviousButton.disabled = true;
   setOnClickAttribute(pagePreviousButton, buttonStrings.PREVIOUS);
 
-  const firstButton = createHtmlElement(buttonStrings.BUTTON, {
+  const buttonOne = createHtmlElement(buttonStrings.BUTTON, {
     text: numbers.ONE,
     className: buttonStrings.ACTIVE_BUTTON,
     id: `${buttonStrings.BUTTON_PREFIX}${numbers.ONE}`,
   });
-  setOnClickAttribute(firstButton, numbers.ONE);
-  sectionPagination.append(pagePreviousButton, firstButton);
+  setOnClickAttribute(buttonOne, numbers.ONE);
+  sectionPagination.append(pagePreviousButton, buttonOne);
 };
 
 const paginate = async (page) => {
-  if (isCurrentPagePrevious(page)) pageStack.pop();
-  else if (isCurrentPageNext(page)) pageStack.push(++currentPage);
+  if (hasPrevPage(page)) pageStack.pop();
+  else if (hasNextPage(page)) pageStack.push(++currentPage);
   else pageStack.push(page);
 
   currentPage = pageStack[pageStack.length - numbers.ONE];
@@ -267,17 +267,12 @@ const toggleActiveButton = () => {
 
 const toggleButton = () => {
   const { previousButton, nextButton } = htmlQuerySelectorObject;
-  isCurrentPageEquals(numbers.ONE)
-    ? (previousButton.disabled = true)
-    : (previousButton.disabled = false);
-
-  isCurrentPageEquals(totalPage)
-    ? (nextButton.disabled = true)
-    : (nextButton.disabled = false);
+  previousButton.disabled = isCurrentPage(numbers.ONE);
+  nextButton.disabled = isCurrentPage(totalPage);
 };
 
-const isCurrentPageEquals = (pageCount) => currentPage == pageCount;
-const isCurrentPagePrevious = (page) => page == buttonStrings.PREVIOUS;
-const isCurrentPageNext = (page) => page == buttonStrings.NEXT;
+const isCurrentPage = (pageCount) => currentPage == pageCount;
+const hasPrevPage = (page) => page == buttonStrings.PREVIOUS;
+const hasNextPage = (page) => page == buttonStrings.NEXT;
 
-window.onload = helperFunction(videosApi);
+window.onload = fetchHelper(videosApi);
