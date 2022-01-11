@@ -14,11 +14,8 @@ const numbers = {
 function compose(...args) {
   return function (value) {
     let result = value;
-    for (
-      let index = args.length - numbers.ONE;
-      index >= numbers.ZERO;
-      index--
-    ) {
+    const startingIndex = args.length - numbers.ONE;
+    for (index = startingIndex; index >= numbers.ZERO; index--) {
       result = args[index](result);
     }
     return result;

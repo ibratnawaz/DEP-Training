@@ -10,8 +10,9 @@ function getMiddle(value) {
   const length = value.length;
   const middlePosition = Math.floor(length / numbers.TWO);
 
-  if (length % numbers.TWO == numbers.ZERO)
+  if (length % numbers.TWO == numbers.ZERO) {
     return value[middlePosition - numbers.ONE] + value[middlePosition];
+  }
 
   return value[middlePosition];
 }

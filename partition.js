@@ -9,8 +9,11 @@ function partitionOn(callback, items) {
   const evenElements = [];
   const oddElements = [];
   items.forEach((item) => {
-    if (data[item]) evenElements.push(item);
-    else oddElements.push(item);
+    if (data[item]) {
+      evenElements.push(item);
+    } else {
+      oddElements.push(item);
+    }
   });
 
   oddElements.forEach((item, index) => (items[index] = item));
