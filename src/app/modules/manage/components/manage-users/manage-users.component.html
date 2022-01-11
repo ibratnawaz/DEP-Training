@@ -1,0 +1,12 @@
+<div class="row">
+  <app-users-list
+    [usersList]="usersService.usersList"
+    [btnText]="'Details'"
+    (showUser)="showUser($event)"
+    class="col-md-6"
+  ></app-users-list>
+  <app-user-details
+    class="col-md-5 offset-1"
+    [currentUserPreview]="currentUserPreview"
+  ></app-user-details>
+</div>

@@ -1,0 +1,38 @@
+<ul class="nav nav-tabs justify-content-end m-2">
+  <li class="nav-item">
+    <a
+      class="nav-link"
+      [ngClass]="currentActiveLink == '/home' ? 'active' : 'text-primary'"
+      (click)="onNavigation('home')"
+    >
+      Home
+    </a>
+  </li>
+  <li class="nav-item">
+    <a
+      class="nav-link"
+      [ngClass]="currentActiveLink == '/active' ? 'active' : 'text-primary'"
+      (click)="onNavigation('active')"
+    >
+      Active
+    </a>
+  </li>
+  <li class="nav-item">
+    <a
+      class="nav-link"
+      [ngClass]="currentActiveLink == '/deleted' ? 'active' : 'text-primary'"
+      (click)="onNavigation('deleted')"
+    >
+      Deleted
+    </a>
+  </li>
+  <li class="nav-item">
+    <a
+      class="nav-link"
+      [ngClass]="currentActiveLink == '/manage' ? 'active' : 'text-primary'"
+      (click)="onNavigation('manage')"
+    >
+      Manage
+    </a>
+  </li>
+</ul>

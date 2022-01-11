@@ -1,0 +1,15 @@
+<div
+  class="card m-2 border"
+  [ngClass]="user.isDeleted ? 'border-warning' : 'border-success'"
+>
+  <div class="card-body">
+    {{ user.firstName | titleCase | fullName: (user.lastName | titleCase) }}
+  </div>
+  <button
+    type="button"
+    class="btn btn-sm ml-auto m-2 {{ btnColor }}"
+    (click)="getId(user.id)"
+  >
+    {{ btnText }}
+  </button>
+</div>

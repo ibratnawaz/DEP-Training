@@ -1,0 +1,26 @@
+<div class="card sticky-top">
+  <div class="card-body">
+    <h3>
+      {{ user.firstName | titleCase | fullName: (user.lastName | titleCase) }}
+    </h3>
+    <p [ngClass]="user.isDeleted ? 'text-danger' : 'text-success'">
+      {{ user.isDeleted | checkActiveUser }}
+    </p>
+    <div class="row">
+      <div class="col-6">Login Id</div>
+      <div class="col-6">{{ user.login }}</div>
+    </div>
+    <div class="row">
+      <div class="col-6">First Name</div>
+      <div class="col-6">{{ user.firstName | titleCase }}</div>
+    </div>
+    <div class="row">
+      <div class="col-6">Last Name</div>
+      <div class="col-6">{{ user.lastName | titleCase }}</div>
+    </div>
+    <div class="row">
+      <div class="col-6">Age</div>
+      <div class="col-6">{{ user.age }}</div>
+    </div>
+  </div>
+</div>
