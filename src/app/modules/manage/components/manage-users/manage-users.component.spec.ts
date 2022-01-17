@@ -8,9 +8,8 @@ describe('ManageUsersComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ManageUsersComponent ]
-    })
-    .compileComponents();
+      declarations: [ManageUsersComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -21,5 +20,11 @@ describe('ManageUsersComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should get the current user', () => {
+    component.currentUserPreview = null;
+    component.showUser('9c24');
+    expect(component.currentUserPreview.id).toBe('9c24');
   });
 });

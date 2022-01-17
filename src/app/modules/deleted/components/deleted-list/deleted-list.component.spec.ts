@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DeletedListComponent } from './deleted-list.component';
 
-fdescribe('DeletedListComponent', () => {
+describe('DeletedListComponent', () => {
   let component: DeletedListComponent;
   let fixture: ComponentFixture<DeletedListComponent>;
 
@@ -29,7 +29,7 @@ fdescribe('DeletedListComponent', () => {
     expect(length).toBeTruthy();
   });
 
-  fit('should have benn called getDeactivatedUser', () => {
+  it('should have benn called getDeactivatedUser', () => {
     spyOn(component, 'getDeactivatedUser').and.callThrough();
     component.onAactivate('9c24');
     expect(component.getDeactivatedUser).toHaveBeenCalled();

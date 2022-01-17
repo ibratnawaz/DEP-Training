@@ -3,7 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NavbarComponent } from './navbar.component';
 
-fdescribe('NavbarComponent', () => {
+describe('NavbarComponent', () => {
   let component: NavbarComponent;
   let fixture: ComponentFixture<NavbarComponent>;
   let navigateByUrlParam = '';
@@ -39,10 +39,10 @@ fdescribe('NavbarComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  fit('it should navigate', () => {
+  it('it should navigate', () => {
     spyOn(routeFixture, 'navigateByUrl').and.callThrough();
     component.onNavigation('home');
-    // expect(navigateByUrlParam).toEqual('home');
+    expect(navigateByUrlParam).toEqual('home');
     expect(routeFixture.navigateByUrl).toHaveBeenCalledWith('home');
   });
 });
