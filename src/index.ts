@@ -1,9 +1,18 @@
-import express from "express";
+import express, { Express } from "express";
 import dotenv from "dotenv";
+import { User } from "./models/user";
+import router from "./routes/userRoutes";
 
 dotenv.config();
 
-const app = express();
+const PORT: string = process.env.PORT;
 
-const PORT = process.env.PORT;
-app.listen(PORT, () => console.log(`server is running on port ${PORT}`));
+const app: Express = express();
+
+app.use(express.json());
+
+app.use("/users", router);
+
+User.sync();
+
+app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
