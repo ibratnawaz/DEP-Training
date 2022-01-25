@@ -29,26 +29,30 @@ export const createUser = async (req: Request, res: Response) => {
   }
 };
 
-export const getUserById = async (req: Request, res: Response) => {
-  try {
-    const user = await User.findByPk(req.params.id);
-    if (user) {
-      res.status(200).json({ user });
-    } else {
-      res.status(404).json({ message: "No such user found!!" });
-    }
-  } catch (error: any) {
-    res.status(500).json({ error: error.message });
-  }
+export const getUserById = (req: Request, res: Response) => {
+  res.status(200).json({ user: req.body.user });
 };
 
 export const updateUser = async (req: Request, res: Response) => {
   try {
-    const { firstName, lastName, age, login } = req.body;
-    await User.update(
-      { firstName, lastName, age, login },
-      { where: { id: req.params.id } }
-    );
+    const keys = ["firstName", "lastName", "login", "password", "age"];
+
+    const { user } = req.body;
+
+    keys.forEach((key) => {
+      if (key in req.body) {
+        user[key] = req.body[key];
+      }
+    });
+
+    await user.save();
+
+    /* Sending again a new request to db for updating 
+      await User.update(
+        { firstName, lastName, age, login, password },
+        { where: { id: req.params.id } }
+      );
+    */
 
     res.status(200).json({ message: "User details updated!!" });
   } catch (error: any) {
@@ -58,7 +62,7 @@ export const updateUser = async (req: Request, res: Response) => {
 
 export const deleteUser = async (req: Request, res: Response) => {
   try {
-    const user = await User.findByPk(req.params.id);
+    const { user } = req.body;
     user.set({
       isDeleted: true,
     });

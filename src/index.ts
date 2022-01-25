@@ -11,7 +11,7 @@ const app: Express = express();
 
 app.use(express.json());
 
-app.use("/users", router);
+app.use("/api/users", router);
 
 User.sync();
 

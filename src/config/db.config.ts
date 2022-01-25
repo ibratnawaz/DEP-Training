@@ -18,8 +18,8 @@ sequelize
   .then(() => {
     console.log("\nConnection has been established successfully.\n");
   })
-  .catch((err) => {
-    console.error(`\nUnable to connect to the database: ${err}\n`);
+  .catch((error) => {
+    console.error(`\nUnable to connect to the database: ${error}\n`);
   });
 
 export default sequelize;
