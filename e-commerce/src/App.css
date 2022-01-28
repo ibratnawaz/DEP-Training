@@ -1,0 +1,139 @@
+body {
+  margin: 0;
+  font-family: "Roboto", sans-serif;
+}
+
+.header {
+  overflow: hidden;
+  background-color: #f1f1f1;
+  padding: 8px;
+  box-sizing: border-box;
+  margin-bottom: 8px;
+}
+
+.header h3 {
+  float: left;
+}
+
+.link {
+  float: left;
+  color: black;
+  text-align: center;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 18px;
+  line-height: 25px;
+  border-radius: 4px;
+}
+
+.link:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.pagesLink {
+  float: right;
+}
+
+.container {
+  margin: 2px 32px;
+}
+
+.home-container {
+  margin-right: 16px;
+  margin-left: 0;
+  width: inherit;
+  display: grid;
+  grid-gap: 28px;
+  grid-template: auto/repeat(auto-fit, minmax(200px, 1fr));
+  box-sizing: border-box;
+}
+
+.card {
+  width: 100%;
+  color: white;
+  background-color: rgb(37, 37, 37);
+  padding: 10px;
+  padding-bottom: 20px;
+  overflow: hidden;
+  transition: all ease 0.5s;
+}
+
+.card:hover {
+  box-shadow: 0px 10px 8px 0px rgba(73, 73, 73, 0.75);
+  transform: scale(1.1);
+}
+
+.card-thumbnail {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.card-title {
+  font-size: 0.9rem;
+  margin-left: 8px;
+}
+
+.card-author {
+  font-size: 0.7rem;
+  margin-top: 8px;
+}
+
+.card-author small {
+  color: #ced4da;
+}
+
+.card-description {
+  font-size: 0.8rem;
+  overflow: hidden;
+  margin-bottom: 0;
+  /* single line ellipsis */
+  /* white-space: nowrap;
+  text-overflow: ellipsis; */
+
+  /* Multi-line ellipsis */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.card img {
+  width: 90px;
+  height: 113px;
+}
+
+.card-btn-read {
+  width: fit-content;
+  background-color: rgb(224, 159, 39);
+  font-weight: bold;
+  color: black;
+  cursor: pointer;
+  font-size: 0.7rem;
+  margin-bottom: 0;
+  padding: 2px;
+  border: 1px solid white;
+}
+
+.card button {
+  width: 100%;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+@media screen and (max-width: 540px) {
+  .container,
+  .home-container {
+    margin: 4px;
+  }
+
+  .header {
+    margin: 2px;
+  }
+
+  .card {
+    box-sizing: border-box;
+  }
+}
