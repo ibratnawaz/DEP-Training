@@ -21,9 +21,11 @@ const Home = () => {
     setBooks(response.data);
   };
 
-  const limitBooks = (limit = 0) => {
+  const limitBooks = () => {
     setCurrentBooks((prevState) => {
-      const currentState = books.slice(limit, limit + 20);
+      const limit = prevState.length;
+      const currentState = books.slice(limit, limit + 10);
+
       return [...prevState, ...currentState];
     });
   };
@@ -33,11 +35,21 @@ const Home = () => {
   }
 
   return (
-    <div className="container home-container">
-      {currentBooks.map((book: any) => (
-        <BookCard book={book} key={book.id} />
-      ))}
-    </div>
+    <>
+      <div className="container home-container">
+        {currentBooks.map((book: any) => (
+          <BookCard book={book} key={book.id} />
+        ))}
+      </div>
+
+      <div className="btn-load">
+        {books.length === currentBooks.length ? (
+          <p>No more data</p>
+        ) : (
+          <button onClick={() => limitBooks()}>Load More</button>
+        )}
+      </div>
+    </>
   );
 };
 
