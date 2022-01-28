@@ -1,11 +1,7 @@
 import { schema } from "../utils/joiValidation";
 import { Request, Response, NextFunction } from "express";
 
-export const payloadValidation = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const validation = (req: Request, res: Response, next: NextFunction) => {
   let nextStep = true;
   const keys = ["firstName", "lastName", "login", "password", "age"];
 

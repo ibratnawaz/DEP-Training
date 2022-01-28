@@ -16,7 +16,7 @@ export const User = sequelize.define(
       validate: {
         isAlpha: { msg: "Please prove valid first name." },
         notEmpty: {
-          msg: "Fist name cannot be empty.",
+          msg: "First name cannot be empty.",
         },
       },
     },
@@ -26,7 +26,7 @@ export const User = sequelize.define(
       validate: {
         isAlpha: { msg: "Please prove valid first name." },
         notEmpty: {
-          msg: "Fist name cannot be empty.",
+          msg: "Last name cannot be empty.",
         },
       },
     },

@@ -13,17 +13,22 @@ export const getUsers = async (req: Request, res: Response) => {
 
 export const createUser = async (req: Request, res: Response) => {
   try {
-    const { firstName, lastName, age, login, password } = req.body;
-    await User.create({
-      id: uuidv4(),
-      firstName,
-      lastName,
-      age,
-      login,
-      password,
-    });
+    const user = await User.count({ where: { login: req.body.login } });
+    if (user) {
+      res.status(400).json({ error: "Email is already taken." });
+    } else {
+      const { firstName, lastName, age, login, password } = req.body;
+      await User.create({
+        id: uuidv4(),
+        firstName,
+        lastName,
+        age,
+        login,
+        password,
+      });
 
-    res.status(201).json({ message: "User created!!" });
+      res.status(201).json({ message: "User created!!" });
+    }
   } catch (error: any) {
     res.status(500).json({ error: error.message });
   }

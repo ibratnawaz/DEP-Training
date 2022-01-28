@@ -8,27 +8,20 @@ import {
   restoreUser,
   getSoftDeltedUsers,
 } from "../controllers/userController";
-import {
-  checkDuplicateEmail,
-  checkUserPresent,
-  checkUserWithSoftDelete,
-} from "../middlewares/authenticate";
-import { payloadValidation } from "../middlewares/validate";
+import { authenticate } from "../middlewares/authenticate";
+import { validation } from "../middlewares/validate";
 
 const router: Router = express.Router();
 
-router
-  .route("/")
-  .post([payloadValidation, checkDuplicateEmail], createUser)
-  .get(getUsers);
+router.route("/").post(validation, createUser).get(getUsers);
 
 router
   .route("/:id")
-  .put(checkUserPresent, updateUser)
-  .get(checkUserPresent, getUserById)
-  .delete(checkUserPresent, deleteUser);
+  .put(authenticate({ paranoid: true }), updateUser)
+  .get(authenticate({ paranoid: true }), getUserById)
+  .delete(authenticate({ paranoid: true }), deleteUser);
 
-router.get("/restore/:id", checkUserWithSoftDelete, restoreUser);
+router.get("/restore/:id", authenticate({ paranoid: false }), restoreUser);
 
 router.get("/soft-deletes/list", getSoftDeltedUsers);
 
