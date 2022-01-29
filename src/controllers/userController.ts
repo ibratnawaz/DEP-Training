@@ -1,13 +1,20 @@
 import { Request, Response } from "express";
 import { User } from "../models/user";
 import { v4 as uuidv4 } from "uuid";
+import {
+  CREATED,
+  INTERNAL_SERVER_ERROR,
+  NOT_ACCEPTABLE,
+  OK,
+  UPDATED,
+} from "../constants/statusCode";
 
 export const getUsers = async (req: Request, res: Response): Promise<void> => {
   try {
     const users = await User.findAll();
-    res.status(200).json({ users });
+    res.status(OK).json({ users });
   } catch (error: any) {
-    res.status(500).json({ error: error.message });
+    res.status(INTERNAL_SERVER_ERROR).json({ error: error.message });
   }
 };
 
@@ -18,7 +25,7 @@ export const createUser = async (
   try {
     const user = await User.count({ where: { login: req.body.login } });
     if (user) {
-      res.status(400).json({ error: "Email is already taken." });
+      res.status(NOT_ACCEPTABLE).json({ error: "Email is already taken." });
     } else {
       const { firstName, lastName, age, login, password } = req.body;
       await User.create({
@@ -30,15 +37,15 @@ export const createUser = async (
         password,
       });
 
-      res.status(201).json({ message: "User created!!" });
+      res.status(CREATED).json({ message: "User created!!" });
     }
   } catch (error: any) {
-    res.status(500).json({ error: error.message });
+    res.status(INTERNAL_SERVER_ERROR).json({ error: error.message });
   }
 };
 
 export const getUserById = (req: Request, res: Response): void => {
-  res.status(200).json({ user: req.body.user });
+  res.status(OK).json({ user: req.body.user });
 };
 
 export const updateUser = async (
@@ -56,7 +63,7 @@ export const updateUser = async (
     });
 
     await user.save();
-    res.status(200).json({ message: "User details updated!!" });
+    res.status(UPDATED).json({ message: "User details updated!!" });
 
     /*
      * NOTE: For reference
@@ -67,7 +74,7 @@ export const updateUser = async (
      * );
      */
   } catch (error: any) {
-    res.status(500).json({ error: error.message });
+    res.status(INTERNAL_SERVER_ERROR).json({ error: error.message });
   }
 };
 
@@ -84,9 +91,9 @@ export const deleteUser = async (
 
     await user.destroy();
 
-    res.status(200).json({ message: "User deleted!!" });
+    res.status(OK).json({ message: "User deleted!!" });
   } catch (error: any) {
-    res.status(500).json({ error: error.message });
+    res.status(INTERNAL_SERVER_ERROR).json({ error: error.message });
   }
 };
 
@@ -102,9 +109,9 @@ export const restoreUser = async (
         paranoid: false,
       }
     );
-    res.status(200).json({ message: "User restored!!" });
+    res.status(UPDATED).json({ message: "User restored!!" });
   } catch (error: any) {
-    res.status(500).json({ error: error.message });
+    res.status(INTERNAL_SERVER_ERROR).json({ error: error.message });
   }
 };
 
@@ -117,8 +124,8 @@ export const getSoftDeltedUsers = async (
       where: { isDeleted: true },
       paranoid: false,
     });
-    res.status(200).json({ users });
+    res.status(OK).json({ users });
   } catch (error: any) {
-    res.status(500).json({ error: error.message });
+    res.status(INTERNAL_SERVER_ERROR).json({ error: error.message });
   }
 };

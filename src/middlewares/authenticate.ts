@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from "express";
+import { INTERNAL_SERVER_ERROR, NOT_FOUND } from "../constants/statusCode";
 import { User } from "../models/user";
 
 export const authenticate = (config: { paranoid: boolean }) => {
@@ -13,10 +14,10 @@ export const authenticate = (config: { paranoid: boolean }) => {
         req.body["user"] = user;
         next();
       } else {
-        res.status(400).json({ error: "User does not exist." });
+        res.status(NOT_FOUND).json({ error: "User does not exist." });
       }
     } catch (error: any) {
-      res.status(500).json({ error: error.message });
+      res.status(INTERNAL_SERVER_ERROR).json({ error: error.message });
     }
   };
 };

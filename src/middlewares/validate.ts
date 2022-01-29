@@ -1,5 +1,6 @@
 import { schema } from "./users.joiValidation";
 import { Request, Response, NextFunction } from "express";
+import { NOT_ACCEPTABLE } from "../constants/statusCode";
 
 export const validation = (User: { rawAttributes: {} }) => {
   return (req: Request, res: Response, next: NextFunction): void => {
@@ -9,7 +10,9 @@ export const validation = (User: { rawAttributes: {} }) => {
 
     for (let index = 0; index < keys.length; index++) {
       if (!isKeyPresent(keys[index], req)) {
-        res.status(400).json({ error: `${keys[index]} is not present` });
+        res
+          .status(NOT_ACCEPTABLE)
+          .json({ error: `${keys[index]} is not present` });
         nextStep = false;
         break;
       }
@@ -22,7 +25,7 @@ export const validation = (User: { rawAttributes: {} }) => {
         { abortEarly: false }
       );
       if (error) {
-        res.status(400).json({ error: error.message });
+        res.status(NOT_ACCEPTABLE).json({ error: error.message });
       } else {
         next();
       }
