@@ -37,7 +37,7 @@ const Header = () => {
       acriveLink.name = bookTitle;
       acriveLink.route = "/book";
   }
-  console.log(acriveLink.name);
+
   return (
     <div className="header">
       <h3>{`E-commerce Website | ${acriveLink.name}`}</h3>

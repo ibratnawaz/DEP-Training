@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { addToCart, isItemInCart } from "../utils/cartMethods";
 
 type Book = {
+  id: number;
   title: string;
   thumbnailUrl: string;
   authors: string[];
@@ -13,7 +15,10 @@ type Book = {
 
 const Book = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
+
   const [book, setBook] = useState({} as Book);
+  const [isPresent, setIsPresent] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -29,7 +34,7 @@ const Book = () => {
     setBook(() => {
       const { data } = response;
       localStorage.setItem("bookTitle", data.title);
-
+      setIsPresent(isItemInCart(data.id));
       return data;
     });
     setLoading(false);
@@ -63,7 +68,15 @@ const Book = () => {
             <span className="book-specs">ISBN- </span>
             <span className="book-spec-val">{book.isbn}</span>
           </p>
-          <button>Add to cart</button>
+          {isPresent ? (
+            <button className="btn-warning" onClick={() => navigate("/cart")}>
+              Go to cart
+            </button>
+          ) : (
+            <button onClick={() => addToCart(book, setIsPresent)}>
+              Add to cart
+            </button>
+          )}
           <button>Buy Now</button>
         </div>
         <div className="book-description">{book.longDescription}</div>

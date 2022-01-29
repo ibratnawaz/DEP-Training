@@ -3,12 +3,17 @@ body {
   font-family: "Roboto", sans-serif;
 }
 
+/* header section */
 .header {
   overflow: hidden;
   background-color: #f1f1f1;
   padding: 8px;
   box-sizing: border-box;
   margin-bottom: 8px;
+}
+
+.text-center {
+  text-align: center;
 }
 
 .header h3 {
@@ -56,6 +61,7 @@ body {
   border: 1px solid rgb(199, 145, 74);
 }
 
+/* home & item card section */
 .home-container {
   margin-right: 16px;
   margin-left: 0;
@@ -141,6 +147,7 @@ button:hover {
   cursor: pointer;
 }
 
+/* Book section */
 .container-book {
   display: grid;
   grid-template-columns: 0.5fr 1fr;
@@ -195,6 +202,112 @@ button:hover {
   word-spacing: 2px;
 }
 
+/* Order section */
+.order-container {
+  display: grid;
+  border: 1px solid #aaa;
+  padding: 12px;
+  margin: 10px 0;
+  box-sizing: border-box;
+}
+
+.order-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background-color: rgb(58, 58, 58);
+  color: white;
+  padding: 8px 4px;
+  font-size: 0.8rem;
+}
+
+.order-status {
+  justify-self: end;
+}
+
+.order-body {
+  margin-top: 2px;
+  display: grid;
+  grid-template-columns: 0.2fr 1fr;
+}
+
+.order-body p {
+  margin: 0 0 12px 12px;
+}
+
+/* cart section */
+.cart-container {
+  display: grid;
+  grid-template-columns: 1fr 0.7fr;
+  grid-gap: 100px;
+}
+
+.cart-items-value {
+  margin-left: 4px;
+}
+
+.cart-items-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  font-weight: bold;
+}
+
+.cart-items-row span {
+  justify-self: end;
+}
+
+.payment {
+  font-size: 1.5rem;
+}
+
+.form-control {
+  display: grid;
+  box-sizing: border-box;
+}
+
+input[type="text"] {
+  width: 80%;
+  margin: 8px 0 20px 0;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.address .row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.row input[type="text"] {
+  width: 60%;
+}
+
+.btn {
+  color: white;
+  padding: 12px;
+  margin: 10px 0;
+  border: none;
+  width: 100%;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 17px;
+}
+
+.btn-warning {
+  background-color: #ffc107 !important;
+  color: black !important;
+}
+
+.btn-success {
+  background-color: #04aa6d;
+}
+
+.btn-box {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 32px;
+}
+
+/* media query */
 @media screen and (max-width: 539px) {
   .container,
   .home-container {
@@ -209,7 +322,19 @@ button:hover {
     box-sizing: border-box;
   }
 
-  .container-book {
+  .container-book,
+  .cart-container,
+  .btn-box {
     grid-template-columns: none;
+    grid-gap: 24px;
+  }
+
+  .address .row {
+    grid-template-columns: none;
+  }
+
+  input[type="text"],
+  .row input[type="text"] {
+    width: auto;
   }
 }
