@@ -10,11 +10,19 @@ import {
 } from "../controllers/userController";
 import { authenticate } from "../middlewares/authenticate";
 import { validation } from "../middlewares/validate";
+import { User } from "../models/user";
 
 const router: Router = express.Router();
 
-router.route("/").post(validation, createUser).get(getUsers);
+/*
+ * NOTE: Pass the model name on which validation is required.
+ */
+router.route("/").post(validation(User), createUser).get(getUsers);
 
+/*
+ * NOTE: To check if the user is in soft-deleted or not, pass an
+ *       object with paranoid property as true/false.
+ */
 router
   .route("/:id")
   .put(authenticate({ paranoid: true }), updateUser)

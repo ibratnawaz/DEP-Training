@@ -1,7 +1,7 @@
 import sequelize from "../config/db.config";
-import { DataTypes } from "sequelize";
+import { DataTypes, Model, ModelStatic } from "sequelize";
 
-export const User = sequelize.define(
+export const User: ModelStatic<Model<any, any>> = sequelize.define(
   "User",
   {
     id: {

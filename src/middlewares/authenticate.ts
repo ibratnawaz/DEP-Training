@@ -2,7 +2,11 @@ import { Request, Response, NextFunction } from "express";
 import { User } from "../models/user";
 
 export const authenticate = (config: { paranoid: boolean }) => {
-  return async (req: Request, res: Response, next: NextFunction) => {
+  return async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> => {
     try {
       const user = await User.findByPk(req.params.id, config);
       if (user) {

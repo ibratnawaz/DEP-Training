@@ -1,6 +1,6 @@
 import Joi from "joi";
 
-export const schema = Joi.object({
+export const schema: Joi.ObjectSchema<any> = Joi.object({
   firstName: Joi.string()
     .pattern(new RegExp("^[a-zA-Z]{3,50}$"))
     .required()
