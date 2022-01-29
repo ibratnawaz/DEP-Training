@@ -15,44 +15,44 @@ const Header = () => {
     }
   }, [pathName]);
 
-  const acriveLink = {
+  const activeLink = {
     name: "Home",
     route: "/",
   };
 
   switch (pathName) {
     case "/":
-      acriveLink.name = "Home";
-      acriveLink.route = "/";
+      activeLink.name = "Home";
+      activeLink.route = "/";
       break;
     case "/my-orders":
-      acriveLink.name = "My Orders";
-      acriveLink.route = "/my-orders";
+      activeLink.name = "My Orders";
+      activeLink.route = "/my-orders";
       break;
     case "/cart":
-      acriveLink.name = "Cart";
-      acriveLink.route = "/cart";
+      activeLink.name = "Cart";
+      activeLink.route = "/cart";
       break;
     default:
-      acriveLink.name = bookTitle;
-      acriveLink.route = "/book";
+      activeLink.name = bookTitle;
+      activeLink.route = "/book";
   }
 
   return (
     <div className="header">
-      <h3>{`E-commerce Website | ${acriveLink.name}`}</h3>
+      <h3>{`E-commerce Website | ${activeLink.name}`}</h3>
       <div className="pagesLink">
-        <Link to="/" className={`link ${acriveLink.route === "/" && "active"}`}>
+        <Link to="/" className={`link ${activeLink.route === "/" && "active"}`}>
           Home
         </Link>
         <Link
           to="/my-orders"
-          className={`link ${acriveLink.route === "/my-orders" && "active"}`}>
+          className={`link ${activeLink.route === "/my-orders" && "active"}`}>
           My Orders
         </Link>
         <Link
           to="/cart"
-          className={`link ${acriveLink.route === "/cart" && "active"}`}>
+          className={`link ${activeLink.route === "/cart" && "active"}`}>
           Cart
         </Link>
       </div>
