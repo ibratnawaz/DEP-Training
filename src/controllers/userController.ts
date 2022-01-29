@@ -6,7 +6,6 @@ import {
   INTERNAL_SERVER_ERROR,
   NOT_ACCEPTABLE,
   OK,
-  UPDATED,
 } from "../constants/statusCode";
 
 export const getUsers = async (req: Request, res: Response): Promise<void> => {
@@ -63,7 +62,7 @@ export const updateUser = async (
     });
 
     await user.save();
-    res.status(UPDATED).json({ message: "User details updated!!" });
+    res.status(OK).json({ message: "User details updated!!" });
 
     /*
      * NOTE: For reference
@@ -109,7 +108,7 @@ export const restoreUser = async (
         paranoid: false,
       }
     );
-    res.status(UPDATED).json({ message: "User restored!!" });
+    res.status(OK).json({ message: "User restored!!" });
   } catch (error: any) {
     res.status(INTERNAL_SERVER_ERROR).json({ error: error.message });
   }
