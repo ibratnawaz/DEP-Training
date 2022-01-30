@@ -12,7 +12,9 @@ const MyOrders = () => {
   }, []);
 
   const fetchOrders = async () => {
-    const response = await axios.get("http://localhost:3000/orders");
+    const response = await axios.get(
+      "http://localhost:3000/orders?_sort=id&_order=desc"
+    );
     setMyOrders(response.data);
   };
 

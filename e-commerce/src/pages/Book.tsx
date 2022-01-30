@@ -40,6 +40,21 @@ const Book = () => {
     setLoading(false);
   };
 
+  const buyBook = async () => {
+    const payload = {
+      book: {
+        id: book.id,
+        title: book.title,
+        authors: book.authors,
+        thumbnailUrl: book.thumbnailUrl,
+      },
+      orderPlacedAt: new Date().toDateString(),
+      status: "Delivered",
+    };
+    await axios.post("http://localhost:3000/orders", payload);
+    navigate("/my-orders");
+  };
+
   if (loading) {
     return <h3>Loading data, please wait...</h3>;
   }
@@ -77,7 +92,7 @@ const Book = () => {
               Add to cart
             </button>
           )}
-          <button>Buy Now</button>
+          <button onClick={buyBook}>Buy Now</button>
         </div>
         <div className="book-description">{book.longDescription}</div>
       </div>
