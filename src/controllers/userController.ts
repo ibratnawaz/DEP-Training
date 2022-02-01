@@ -114,7 +114,7 @@ export const restoreUser = async (
   }
 };
 
-export const getSoftDeltedUsers = async (
+export const getSoftDeletedUsers = async (
   req: Request,
   res: Response
 ): Promise<void> => {
@@ -123,6 +123,15 @@ export const getSoftDeltedUsers = async (
       where: { isDeleted: true },
       paranoid: false,
     });
+    res.status(OK).json({ users });
+  } catch (error: any) {
+    res.status(INTERNAL_SERVER_ERROR).json({ error: error.message });
+  }
+};
+
+export const getAllUsers = async (req: Request, res: Response) => {
+  try {
+    const users = await User.findAll({ paranoid: false });
     res.status(OK).json({ users });
   } catch (error: any) {
     res.status(INTERNAL_SERVER_ERROR).json({ error: error.message });

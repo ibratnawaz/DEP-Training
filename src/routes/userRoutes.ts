@@ -6,7 +6,8 @@ import {
   updateUser,
   deleteUser,
   restoreUser,
-  getSoftDeltedUsers,
+  getSoftDeletedUsers,
+  getAllUsers,
 } from "../controllers/userController";
 import { authenticate } from "../middlewares/authenticate";
 import { validation } from "../middlewares/validate";
@@ -31,6 +32,8 @@ router
 
 router.get("/restore/:id", authenticate({ paranoid: false }), restoreUser);
 
-router.get("/soft-deletes/list", getSoftDeltedUsers);
+router.get("/soft-deletes/list", getSoftDeletedUsers);
+
+router.route("/all").get(getAllUsers);
 
 export default router;
