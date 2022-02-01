@@ -131,7 +131,10 @@ export const getSoftDeletedUsers = async (
 
 export const getAllUsers = async (req: Request, res: Response) => {
   try {
-    const users = await User.findAll({ paranoid: false });
+    const users = await User.findAll({
+      paranoid: false,
+      order: [["updatedAt", "DESC"]],
+    });
     res.status(OK).json({ users });
   } catch (error: any) {
     res.status(INTERNAL_SERVER_ERROR).json({ error: error.message });
