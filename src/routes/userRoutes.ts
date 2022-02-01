@@ -34,6 +34,6 @@ router.get("/restore/:id", authenticate({ paranoid: false }), restoreUser);
 
 router.get("/soft-deletes/list", getSoftDeletedUsers);
 
-router.route("/all").get(getAllUsers);
+router.route("/all/list").get(getAllUsers);
 
 export default router;
