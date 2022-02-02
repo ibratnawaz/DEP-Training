@@ -65,7 +65,7 @@ export const updateUser = async (
     res.status(OK).json({ message: "User details updated!!" });
 
     /*
-     * NOTE: For reference
+     * TODO: For reference
      * Sending again a new request to db for updating
      * await User.update(
      *   { firstName, lastName, age, login, password },
@@ -114,7 +114,7 @@ export const restoreUser = async (
   }
 };
 
-export const getSoftDeletedUsers = async (
+export const inactiveUsers = async (
   req: Request,
   res: Response
 ): Promise<void> => {

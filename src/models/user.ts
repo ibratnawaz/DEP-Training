@@ -14,7 +14,7 @@ export const User: ModelStatic<Model<any, any>> = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        isAlpha: { msg: "Please prove valid first name." },
+        isAlpha: { msg: "Please provide valid first name." },
         notEmpty: {
           msg: "First name cannot be empty.",
         },
@@ -24,7 +24,7 @@ export const User: ModelStatic<Model<any, any>> = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        isAlpha: { msg: "Please prove valid first name." },
+        isAlpha: { msg: "Please provide valid last name." },
         notEmpty: {
           msg: "Last name cannot be empty.",
         },

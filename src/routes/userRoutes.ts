@@ -6,22 +6,21 @@ import {
   updateUser,
   deleteUser,
   restoreUser,
-  getSoftDeletedUsers,
+  inactiveUsers,
   getAllUsers,
 } from "../controllers/userController";
 import { authenticate } from "../middlewares/authenticate";
 import { validation } from "../middlewares/validate";
-import { User } from "../models/user";
 
 const router: Router = express.Router();
 
 /*
- * NOTE: Pass the model name on which validation is required.
+ * TODO: Pass the model name on which validation is required.
  */
-router.route("/").post(validation(User), createUser).get(getUsers);
+router.route("/").post(validation, createUser).get(getUsers);
 
 /*
- * NOTE: To check if the user is in soft-deleted or not, pass an
+ * TODO: To check if the user is in soft-deleted or not, pass an
  *       object with paranoid property as true/false.
  */
 router
@@ -32,8 +31,8 @@ router
 
 router.get("/restore/:id", authenticate({ paranoid: false }), restoreUser);
 
-router.get("/soft-deletes/list", getSoftDeletedUsers);
+router.get("/inactive/list", inactiveUsers);
 
-router.route("/all/list").get(getAllUsers);
+router.get("/all/list", getAllUsers);
 
 export default router;
