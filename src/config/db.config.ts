@@ -9,7 +9,8 @@ const sequelize: Sequelize = new Sequelize(
   process.env.DB_PASSWORD,
   {
     host: process.env.DB_HOST,
-    dialect: "postgres" /* one of 'mysql' | 'mariadb' | 'postgres' | 'mssql' */,
+    // TODO: For reference- in dialect any one of 'mysql' | 'mariadb' | 'postgres' | 'mssql'
+    dialect: "postgres",
   }
 );
 

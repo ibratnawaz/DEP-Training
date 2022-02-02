@@ -14,9 +14,6 @@ import { validation } from "../middlewares/validate";
 
 const router: Router = express.Router();
 
-/*
- * TODO: Pass the model name on which validation is required.
- */
 router.route("/").post(validation, createUser).get(getUsers);
 
 /*
