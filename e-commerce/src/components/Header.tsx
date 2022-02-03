@@ -1,59 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 
 const Header = () => {
   const location = useLocation();
   const pathName = location.pathname;
-  const [bookTitle, setBookTitle] = useState("");
-
-  useEffect(() => {
-    if (pathName.includes("book")) {
-      setBookTitle("");
-      setTimeout(() => {
-        setBookTitle(localStorage.getItem("bookTitle") as string);
-      }, 100);
-    }
-  }, [pathName]);
-
-  const activeLink = {
-    name: "Home",
-    route: "/",
-  };
-
-  switch (pathName) {
-    case "/":
-      activeLink.name = "Home";
-      activeLink.route = "/";
-      break;
-    case "/my-orders":
-      activeLink.name = "My Orders";
-      activeLink.route = "/my-orders";
-      break;
-    case "/cart":
-      activeLink.name = "Cart";
-      activeLink.route = "/cart";
-      break;
-    default:
-      activeLink.name = bookTitle;
-      activeLink.route = "/book";
-  }
+  const title = useSelector((state: any) => state.heading.title);
 
   return (
     <div className="header">
-      <h3>{`E-commerce Website | ${activeLink.name}`}</h3>
+      <h3>{`E-commerce Website | ${title}`}</h3>
       <div className="pagesLink">
-        <Link to="/" className={`link ${activeLink.route === "/" && "active"}`}>
+        <Link to="/" className={`link ${pathName === "/" && "active"}`}>
           Home
         </Link>
         <Link
           to="/my-orders"
-          className={`link ${activeLink.route === "/my-orders" && "active"}`}>
+          className={`link ${pathName === "/my-orders" && "active"}`}>
           My Orders
         </Link>
-        <Link
-          to="/cart"
-          className={`link ${activeLink.route === "/cart" && "active"}`}>
-          Cart
+        <Link to="/cart" className={`link ${pathName === "/cart" && "active"}`}>
+          My Cart
         </Link>
       </div>
     </div>

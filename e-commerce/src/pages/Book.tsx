@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { addToCart, isItemInCart } from "../utils/cartMethods";
+import { useDispatch } from "react-redux";
+import { setTitle } from "../redux/ducks/heading";
 
 type Book = {
   id: number;
@@ -15,6 +17,7 @@ type Book = {
 
 const Book = () => {
   const { id } = useParams();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [book, setBook] = useState({} as Book);
@@ -33,6 +36,7 @@ const Book = () => {
     const response = await axios.get(`http://localhost:3000/books/${id}`);
     setBook(() => {
       const { data } = response;
+      dispatch(setTitle(data.title));
       localStorage.setItem("bookTitle", data.title);
       setIsPresent(isItemInCart(data.id));
       return data;

@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import OrderCard from "../components/OrderCard";
+import { useDispatch } from "react-redux";
+import { setTitle } from "../redux/ducks/heading";
 
 const MyOrders = () => {
+  const dispatch = useDispatch();
   const [myOrders, setMyOrders] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    dispatch(setTitle("My Orders"));
     fetchOrders();
     setLoading(false);
   }, []);

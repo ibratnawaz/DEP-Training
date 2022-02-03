@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from "react";
 import BookCard from "../components/BookCard";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { setTitle } from "../redux/ducks/heading";
 
 const Home = () => {
+  const dispatch = useDispatch();
   const [books, setBooks] = useState([]);
   const [currentBooks, setCurrentBooks] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    dispatch(setTitle("Home"));
     fetchBooks();
   }, []);
 

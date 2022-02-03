@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import Address from "../components/Address";
 import CartItems from "../components/CartItems";
+import { setTitle } from "../redux/ducks/heading";
 
 const Cart = () => {
+  const dispatch = useDispatch();
+
   let [cartItems, setCartItems] = useState([] as any);
 
   useEffect(() => {
+    dispatch(setTitle("My Cart"));
+
     const data = localStorage.getItem("booksInCart");
     if (data) {
       setCartItems([...JSON.parse(data as string)]);
