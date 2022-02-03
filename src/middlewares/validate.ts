@@ -3,7 +3,7 @@ import { Request, Response, NextFunction } from "express";
 import { NOT_ACCEPTABLE } from "../constants/statusCode";
 import { User } from "../models/user";
 
-export const validation = (
+export const userValidation = (
   req: Request,
   res: Response,
   next: NextFunction

@@ -10,11 +10,11 @@ import {
   getAllUsers,
 } from "../controllers/userController";
 import { authenticate } from "../middlewares/authenticate";
-import { validation } from "../middlewares/validate";
+import { userValidation } from "../middlewares/validate";
 
 const router: Router = express.Router();
 
-router.route("/").post(validation, createUser).get(getUsers);
+router.route("/").post(userValidation, createUser).get(getUsers);
 
 /*
  * TODO: To check if the user is in soft-deleted or not, pass an
