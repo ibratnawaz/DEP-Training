@@ -1,27 +1,14 @@
-import axios from "axios";
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { clearCart, placeOrder } from "../redux/ducks/cart";
 
-const CartItems = (props: { cartItems: any[]; setCartItems: any }) => {
+const CartItems = (props: { cartItems: any[]; dispatch: any }) => {
   const navigate = useNavigate();
-  const { cartItems, setCartItems } = props;
+  const { cartItems, dispatch } = props;
 
-  const placeOrder = () => {
-    cartItems.forEach(async (item: any) => {
-      const payload = {
-        book: { ...item },
-        orderPlacedAt: new Date().toDateString(),
-        status: "Delivered",
-      };
-      await axios.post("http://localhost:3000/orders", payload);
-    });
-    clearCart();
+  const dispatchOrder = () => {
+    dispatch(placeOrder());
     navigate("/my-orders");
-  };
-
-  const clearCart = () => {
-    localStorage.removeItem("booksInCart");
-    setCartItems([]);
   };
 
   return (
@@ -48,7 +35,7 @@ const CartItems = (props: { cartItems: any[]; setCartItems: any }) => {
         <span>$55.00</span>
       </p>
       <p className="cart-items-row">
-        Shippin Charges
+        Shipping Charges
         <span>$40.00</span>
       </p>
       <hr />
@@ -57,11 +44,13 @@ const CartItems = (props: { cartItems: any[]; setCartItems: any }) => {
         <span>$431.00</span>
       </p>
       <div className="btn-box">
-        <button className="btn btn-success" onClick={placeOrder}>
+        <button className="btn btn-success" onClick={dispatchOrder}>
           Place Order
         </button>
-        <button className="btn btn-warning" onClick={clearCart}>
-          Clear My Cart
+        <button
+          className="btn btn-warning"
+          onClick={() => dispatch(clearCart())}>
+          Clear Cart
         </button>
       </div>
     </div>

@@ -1,21 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Address from "../components/Address";
 import CartItems from "../components/CartItems";
 import { setTitle } from "../redux/ducks/heading";
 
 const Cart = () => {
   const dispatch = useDispatch();
-
-  let [cartItems, setCartItems] = useState([] as any);
+  const cartItems = useSelector((state: any) => state.cart.cartItems);
 
   useEffect(() => {
     dispatch(setTitle("My Cart"));
-
-    const data = localStorage.getItem("booksInCart");
-    if (data) {
-      setCartItems([...JSON.parse(data as string)]);
-    }
   }, []);
 
   if (!cartItems.length) {
@@ -25,7 +19,7 @@ const Cart = () => {
   return (
     <div className="cart-container">
       <Address />
-      <CartItems cartItems={cartItems} setCartItems={setCartItems} />
+      <CartItems cartItems={cartItems} dispatch={dispatch} />
     </div>
   );
 };
