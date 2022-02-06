@@ -6,7 +6,7 @@ const CartItems = (props: { cartItems: any[]; dispatch: any }) => {
   const navigate = useNavigate();
   const { cartItems, dispatch } = props;
 
-  const dispatchOrder = () => {
+  const orderHandler = () => {
     dispatch(placeOrder());
     navigate("/my-orders");
   };
@@ -44,7 +44,7 @@ const CartItems = (props: { cartItems: any[]; dispatch: any }) => {
         <span>$431.00</span>
       </p>
       <div className="btn-box">
-        <button className="btn btn-success" onClick={dispatchOrder}>
+        <button className="btn btn-success" onClick={orderHandler}>
           Place Order
         </button>
         <button

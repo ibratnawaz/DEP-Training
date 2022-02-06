@@ -4,10 +4,10 @@ import Input from "./Input";
 
 const Address = () => {
   const [shippingDetails, setShippingDetails] = useState({
-    fullName: "getiing data...",
-    address: "getiing data...",
-    state: "getiing data...",
-    pincode: "getiing data...",
+    fullName: "getting data...",
+    address: "getting data...",
+    state: "getting data...",
+    pincode: "getting data...",
   });
 
   const [disableEditing, setDisableEditing] = useState(true);

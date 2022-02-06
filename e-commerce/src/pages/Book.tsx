@@ -34,12 +34,12 @@ const Book = () => {
     }
   }, []);
 
-  const dispatchCart = () => {
+  const cartHandler = () => {
     dispatch(addToCart(book));
     setIsPresent(true);
   };
 
-  const buyBook = () => {
+  const buyingHandler = () => {
     dispatch(buyProduct(book));
     navigate("/my-orders");
   };
@@ -81,9 +81,9 @@ const Book = () => {
               Go to cart
             </button>
           ) : (
-            <button onClick={dispatchCart}>Add to cart</button>
+            <button onClick={cartHandler}>Add to cart</button>
           )}
-          <button onClick={buyBook}>Buy Now</button>
+          <button onClick={buyingHandler}>Buy Now</button>
         </div>
         <div className="book-description">{book.longDescription}</div>
       </div>
