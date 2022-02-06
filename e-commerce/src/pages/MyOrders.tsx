@@ -1,26 +1,18 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import OrderCard from "../components/OrderCard";
-import { useDispatch } from "react-redux";
 import { setTitle } from "../redux/ducks/heading";
+import { getMyOrders } from "../redux/ducks/orders";
 
 const MyOrders = () => {
   const dispatch = useDispatch();
-  const [myOrders, setMyOrders] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
+  const order = useSelector((state: any) => state.order);
+  const { myOrders, loading } = order;
 
   useEffect(() => {
     dispatch(setTitle("My Orders"));
-    fetchOrders();
-    setLoading(false);
+    dispatch(getMyOrders());
   }, []);
-
-  const fetchOrders = async () => {
-    const response = await axios.get(
-      "http://localhost:3000/orders?_sort=id&_order=desc"
-    );
-    setMyOrders(response.data);
-  };
 
   if (loading) {
     return <h3 className="text-center">Loading data, please wait...</h3>;

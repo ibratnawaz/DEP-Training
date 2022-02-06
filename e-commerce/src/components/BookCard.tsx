@@ -1,18 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import Book from "../pages/Book";
 import { addToCart } from "../redux/ducks/cart";
 
-const BookCard = (props: { book: any }) => {
+const BookCard = (props: { book: Book }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const cartItems = useSelector((state: any) => state.cart.cartItems);
   const [isPresent, setIsPresent] = useState(false);
 
   const { book } = props;
 
-  const changeRoute = (id: string) => {
-    navigate(`/book/${id}`);
-  };
+  useEffect(() => {
+    const itemPresent = cartItems.findIndex(
+      (item: Book) => item.id === book.id
+    );
+    if (itemPresent !== -1) {
+      setIsPresent(true);
+    }
+  }, [cartItems]);
 
   return (
     <div className="card">
@@ -27,7 +34,7 @@ const BookCard = (props: { book: any }) => {
       <p
         className="card-btn-read"
         title="Click to see more details about this book"
-        onClick={() => changeRoute(book.id)}>
+        onClick={() => navigate(`/book/${book.id}`)}>
         Read more
       </p>
       <br />

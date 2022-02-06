@@ -1,38 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import BookCard from "../components/BookCard";
-import axios from "axios";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setTitle } from "../redux/ducks/heading";
+import { clearState, getBooks, setCurrentBooks } from "../redux/ducks/product";
 
 const Home = () => {
   const dispatch = useDispatch();
-  const [books, setBooks] = useState([]);
-  const [currentBooks, setCurrentBooks] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const product = useSelector((state: any) => state.product);
+  const { books, currentBooks, loading } = product;
 
   useEffect(() => {
     dispatch(setTitle("Home"));
-    fetchBooks();
+    dispatch(getBooks());
+
+    return function () {
+      dispatch(clearState());
+    };
   }, []);
-
-  useEffect(() => {
-    limitBooks();
-    setLoading(false);
-  }, [books]);
-
-  const fetchBooks = async () => {
-    const response = await axios.get("http://localhost:3000/books");
-    setBooks(response.data);
-  };
-
-  const limitBooks = () => {
-    setCurrentBooks((prevState) => {
-      const limit = prevState.length;
-      const currentState = books.slice(limit, limit + 10);
-
-      return [...prevState, ...currentState];
-    });
-  };
 
   if (loading) {
     return <h3 className="text-center">Loading data, please wait...</h3>;
@@ -50,7 +34,7 @@ const Home = () => {
         {books.length === currentBooks.length ? (
           <p>No more data</p>
         ) : (
-          <button onClick={() => limitBooks()}>Load More</button>
+          <button onClick={() => dispatch(setCurrentBooks())}>Load More</button>
         )}
       </div>
     </>

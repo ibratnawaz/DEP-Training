@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
-import { addToCart, isItemInCart } from "../utils/cartMethods";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setTitle } from "../redux/ducks/heading";
+import { addToCart, buyProduct } from "../redux/ducks/cart";
+import { getBookById } from "../redux/ducks/product";
 
 type Book = {
   id: number;
@@ -19,48 +19,37 @@ const Book = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const [book, setBook] = useState({} as Book);
+  const cartItems = useSelector((state: any) => state.cart.cartItems);
+  const product = useSelector((state: any) => state.product);
   const [isPresent, setIsPresent] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const { book, loading } = product;
 
   useEffect(() => {
-    fetchBooks();
-
-    return function () {
-      localStorage.removeItem("bookTitle");
-    };
+    dispatch(getBookById(id as string));
+    const itemPresent = cartItems.findIndex(
+      (item: Book) => item.id === parseInt(id as string)
+    );
+    if (itemPresent !== -1) {
+      setIsPresent(true);
+    }
   }, []);
 
-  const fetchBooks = async () => {
-    const response = await axios.get(`http://localhost:3000/books/${id}`);
-    setBook(() => {
-      const { data } = response;
-      dispatch(setTitle(data.title));
-      localStorage.setItem("bookTitle", data.title);
-      setIsPresent(isItemInCart(data.id));
-      return data;
-    });
-    setLoading(false);
+  const dispatchCart = () => {
+    dispatch(addToCart(book));
+    setIsPresent(true);
   };
 
-  const buyBook = async () => {
-    const payload = {
-      book: {
-        id: book.id,
-        title: book.title,
-        authors: book.authors,
-        thumbnailUrl: book.thumbnailUrl,
-      },
-      orderPlacedAt: new Date().toDateString(),
-      status: "Delivered",
-    };
-    await axios.post("http://localhost:3000/orders", payload);
+  const buyBook = () => {
+    dispatch(buyProduct(book));
     navigate("/my-orders");
   };
 
-  if (loading) {
+  if (loading || !book.id) {
     return <h3>Loading data, please wait...</h3>;
+  }
+
+  if (!loading && book.id) {
+    dispatch(setTitle(book.title));
   }
 
   return (
@@ -92,9 +81,7 @@ const Book = () => {
               Go to cart
             </button>
           ) : (
-            <button onClick={() => addToCart(book, setIsPresent)}>
-              Add to cart
-            </button>
+            <button onClick={dispatchCart}>Add to cart</button>
           )}
           <button onClick={buyBook}>Buy Now</button>
         </div>

@@ -28,18 +28,27 @@ export const placeOrder =
   (dispatch: any, getState: any): void => {
     const cartItems = getState().cart.cartItems;
     cartItems.forEach(async (item: any) => {
-      const payload = {
-        book: { ...item },
-        orderPlacedAt: new Date().toDateString(),
-        status: "Delivered",
-      };
-      await axios.post("http://localhost:3000/orders", payload);
+      dispatch(buyProduct(item));
     });
 
     dispatch({
       type: CLEAR_CART,
     });
   };
+
+export const buyProduct = (book: any) => async () => {
+  const payload = {
+    book: {
+      id: book.id,
+      title: book.title,
+      authors: book.authors,
+      thumbnailUrl: book.thumbnailUrl,
+    },
+    orderPlacedAt: new Date().toDateString(),
+    status: "Delivered",
+  };
+  await axios.post("http://localhost:3000/orders", payload);
+};
 
 export const removeItemFromCart =
   (id: string) => (dispatch: any, getState: Function) => {
