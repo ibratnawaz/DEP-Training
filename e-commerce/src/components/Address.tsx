@@ -1,25 +1,27 @@
-import axios from "axios";
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getShippingDetails, updateShippingDetails } from "../redux/ducks/user";
 import Input from "./Input";
 
 const Address = () => {
+  const dispatch = useDispatch();
+  const address = useSelector((state: any) => state.user.address);
   const [shippingDetails, setShippingDetails] = useState({
-    fullName: "getting data...",
-    address: "getting data...",
-    state: "getting data...",
-    pincode: "getting data...",
+    fullName: "",
+    address: "",
+    state: "",
+    pincode: "",
   });
 
   const [disableEditing, setDisableEditing] = useState(true);
 
   useEffect(() => {
-    fetchAddress();
-  }, []);
-
-  const fetchAddress = async () => {
-    const response = await axios.get("http://localhost:3000/shippngAddress/1");
-    setShippingDetails(response.data);
-  };
+    if (!address) {
+      dispatch(getShippingDetails());
+    } else {
+      setShippingDetails(address);
+    }
+  }, [address]);
 
   const getDetails = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name: key, value } = e.target;
@@ -28,7 +30,7 @@ const Address = () => {
 
   const submitShippingHandler = async (e: any) => {
     e.preventDefault();
-    await axios.put("http://localhost:3000/shippngAddress/1", shippingDetails);
+    dispatch(updateShippingDetails(shippingDetails));
     setDisableEditing(true);
   };
 
