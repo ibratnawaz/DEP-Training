@@ -9,8 +9,8 @@ const CLEAR_CART = "clearCart";
 export const addToCart =
   (data: any): ThunkAction<void, {}, {}, AnyAction> =>
   (dispatch: ThunkDispatch<{}, {}, AnyAction>, getState: any): void => {
-    const { id, title, authors, thumbnailUrl } = data;
-    const payload = { id, title, authors, thumbnailUrl };
+    const { id, title, authors, thumbnailUrl, price } = data;
+    const payload = { id, title, authors, thumbnailUrl, price };
 
     dispatch({
       type: ADD_ITEM_TO_CART,
@@ -43,6 +43,7 @@ export const buyProduct = (book: any) => async () => {
       title: book.title,
       authors: book.authors,
       thumbnailUrl: book.thumbnailUrl,
+      price: book.price,
     },
     orderPlacedAt: new Date().toDateString(),
     status: "Delivered",

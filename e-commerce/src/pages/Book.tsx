@@ -62,7 +62,7 @@ const Book = () => {
           <p className="book-title">{book.title}</p>
           <p>
             <span className="book-specs">Price: </span>
-            <span className="book-spec-val">$172.00</span>
+            <span className="book-spec-val">${book.price.toFixed(2)}</span>
           </p>
           <p>
             <span className="book-specs">Written by- </span>

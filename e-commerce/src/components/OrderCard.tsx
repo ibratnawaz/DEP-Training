@@ -19,7 +19,9 @@ const OrderCard = (props: { order: any }) => {
           </p>
           <p>
             <span className="book-specs">Price: </span>
-            <span className="book-spec-val">$172.00</span>
+            <span className="book-spec-val">
+              ${order.book.price.toFixed(2)}
+            </span>
           </p>
         </div>
       </div>
