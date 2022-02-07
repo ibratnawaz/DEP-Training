@@ -255,6 +255,17 @@ button:hover {
   justify-self: end;
 }
 
+.btn-delete {
+  color: #aaa;
+  padding: 1px 2px;
+  margin-left: 8px;
+  border: 1px solid;
+}
+.btn-delete:hover {
+  color: #7a7c7e;
+  cursor: pointer;
+}
+
 .payment {
   font-size: 1.5rem;
 }
