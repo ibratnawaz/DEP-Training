@@ -24,7 +24,7 @@ describe('UsersListComponent', () => {
 
   it('should emit with the given id', () => {
     spyOn(component.showUser, 'emit').and.callFake((id: string) =>
-      console.log('>> id is ' + id)
+      
     );
     component.sendId('9c01');
     expect(component.showUser.emit).toHaveBeenCalledWith('9c01');

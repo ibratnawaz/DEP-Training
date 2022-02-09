@@ -35,7 +35,7 @@ describe('UserComponent', () => {
 
   it('should emit with the given id', () => {
     spyOn(component.sendId, 'emit').and.callFake((id: string) =>
-      console.log('>> id is ' + id)
+      
     );
     component.getId('9c01');
     expect(component.sendId.emit).toHaveBeenCalledWith('9c01');

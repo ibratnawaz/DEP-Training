@@ -24,7 +24,6 @@ export class NavbarComponent implements OnInit {
   }
 
   onNavigation(link: string) {
-    console.log('>>>', this.router);
     this.router.navigateByUrl(link);
   }
 }
