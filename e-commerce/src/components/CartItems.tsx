@@ -59,7 +59,7 @@ const CartItems = (props: { cartItems: any[]; dispatch: any }) => {
       <hr />
       <p className="cart-items-row">
         Grand Total
-        <span>$431.00</span>
+        <span>${total.toFixed(2)}</span>
       </p>
       <div className="btn-box">
         <button className="btn btn-success" onClick={orderHandler}>
